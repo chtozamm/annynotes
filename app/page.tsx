@@ -1,95 +1,85 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import styles from "./page.module.css";
+import Form from "./Form";
+import { PrismaClient } from "@prisma/client";
+import Posts from "./Posts";
+import { revalidatePath } from "next/cache";
+import Loader from "./Loader";
 
-export default function Home() {
+export default async function Home() {
+  // Get posts from database
+  async function getPosts() {
+    "use server";
+    const prisma = new PrismaClient();
+    const posts = await prisma.posts.findMany({
+      orderBy: [
+        {
+          id: "desc",
+        },
+      ],
+    });
+    revalidatePath("/");
+    await prisma.$disconnect();
+    return posts;
+  }
+
+  // Create new post
+  async function createPost(message: string, senderName: string) {
+    "use server";
+    const prisma = new PrismaClient();
+    await prisma.posts.create({
+      data: {
+        message: message,
+        name: senderName,
+      },
+    });
+    await prisma.$disconnect();
+    revalidatePath("/");
+  }
+
+  // Delete post
+  async function deletePost(id: number) {
+    "use server";
+    const prisma = new PrismaClient();
+    await prisma.posts.delete({
+      where: {
+        id: id,
+      },
+    });
+    await prisma.$disconnect();
+    revalidatePath("/");
+  }
+
+  // Update post
+  async function editPost(id: number, message: string, senderName: string) {
+    "use server";
+    const prisma = new PrismaClient();
+    await prisma.posts.update({
+      where: {
+        id: id,
+      },
+      data: {
+        message: message,
+        name: senderName,
+      },
+    });
+    await prisma.$disconnect();
+    revalidatePath("/");
+  }
+
+  const posts = await getPosts();
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
+    <main className={styles.container}>
+      <Loader />
+      <div>
+        <h1>Annynotes ✨</h1>
+        <p className={styles.description}>
+          here you can share a legend <br />
+          or leave a note for a loved one
         </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <Form createPost={createPost} getPosts={getPosts} />
+      <Posts posts={posts} />
     </main>
-  )
+  );
 }

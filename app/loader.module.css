@@ -1,0 +1,50 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f9c23c;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.containerAnimation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f9c23c;
+  z-index: 10;
+  animation: dissapear ease-in-out 1s forwards;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header {
+  position: relative;
+  z-index: 11;
+  color: #fff;
+}
+
+.headerAnimation {
+  position: fixed;
+  z-index: 11;
+  color: #fff;
+  animation: dissapear ease-in-out 1s forwards;
+}
+
+@keyframes dissapear {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0;
+  }
+}

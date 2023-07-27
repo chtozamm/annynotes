@@ -1,0 +1,56 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 640px;
+  width: 100%;
+}
+
+.input {
+  border: 1px #f9c23c solid;
+  border-radius: 16px;
+  font-family: "Ringbearer", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1em;
+  outline: none;
+  padding: 1em;
+}
+
+.textArea {
+  border: 1px #f9c23c solid;
+  border-radius: 16px;
+  font-family: "Ringbearer", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1em;
+  height: 162px;
+  outline: none;
+  padding: 1em;
+  resize: none;
+}
+
+.input:focus,
+.textArea:focus {
+  background-color: rgba(249, 194, 60, 0.1);
+}
+
+.button {
+  background-color: #f9c23c;
+  color: #fff;
+  border-radius: 16px;
+  height: 30px;
+  padding-top: 1.5em;
+  padding-bottom: 2.8em;
+  font-family: "Ringbearer", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.8em;
+  font-weight: 900;
+  outline: none;
+}
+
+.button:focus {
+  background-color: hsl(43, 94%, 71%);
+}
