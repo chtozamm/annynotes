@@ -3,10 +3,8 @@
 import styles from "./posts.module.css";
 import SinglePost from "./Post";
 import { Post } from "./types";
-import { useState, useEffect } from "react";
-import Image from "next/image";
 
-export default function Posts({ posts }: any) {
+export default async function Posts({ posts }: any) {
   // Get quantity of posts
   let n = posts.length + 1;
 
