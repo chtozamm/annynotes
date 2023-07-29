@@ -1,21 +1,24 @@
 {
-  "name": "next-annynotes",
+  "name": "annynotes",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 80",
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^5.0.0",
     "@types/node": "20.4.4",
     "@types/react": "18.2.16",
     "@types/react-dom": "18.2.7",
     "next": "13.4.12",
+    "pocketbase": "^0.15.3",
+    "prop-types": "^15.8.1",
     "react": "18.2.0",
+    "react-confirm-alert": "^3.0.6",
     "react-dom": "18.2.0",
+    "sharp": "^0.32.4",
     "typescript": "5.1.6"
   }
 }

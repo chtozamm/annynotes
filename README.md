@@ -2,16 +2,32 @@
 
 "Here you can share a legend or leave a note for a loved one."
 
-## Getting Started
-
-Run the development server:
+## Getting started
 
 ```bash
+// Clone repository
+git clone https://github.com/chtozamm/annynotes.git
+
+// Install dependencies
+npm install
+
+// Run PocketBase server (Windows):
+.\pocketbase\pocketbase.exe
+// For running database on other platforms read the docs on pocketbase.io
+
+// To run development server:
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+
+// To build an application:
+npm run build
+
+// To run production server:
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
+
+Next.js, PocketBase, TypeScript
+
+Main logic and components are located in 'app' folder
+All database related functions: `bash /pocketbase/index.ts`
