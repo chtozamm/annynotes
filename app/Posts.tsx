@@ -1,5 +1,3 @@
-"use client";
-
 import styles from "./posts.module.css";
 import SinglePost from "./Post";
 import { Post } from "./types";
