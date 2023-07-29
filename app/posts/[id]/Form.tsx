@@ -7,8 +7,8 @@ import styles from "./form.module.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-export default function Form({ editPost, deletePost, post }: any) {
-  const [senderName, setSenderName] = useState(post.name);
+export default function Form({ updatePost, deletePost, post }: any) {
+  const [senderName, setSenderName] = useState(post.sender_name);
   const [message, setMessage] = useState(post.message);
   const [isShown, setShown] = useState(false);
 
@@ -62,7 +62,7 @@ export default function Form({ editPost, deletePost, post }: any) {
               e.preventDefault();
               if (message) {
                 startTransition(
-                  async () => await editPost(post.id, message, senderName)
+                  async () => await updatePost(post.id, senderName, message)
                 );
               }
               router.refresh();
@@ -90,22 +90,24 @@ export default function Form({ editPost, deletePost, post }: any) {
               UPDATE
             </button>
           </form>
-          <button
-            className={styles.button}
-            onClick={async () => {
-              callConfirm();
-              router.refresh();
-            }}
-            style={{
-              width: "90vw",
-              maxWidth: "640px",
-              backgroundColor: "darkgoldenred",
-              marginBottom: "3em",
-            }}
-          >
-            DELETE
-          </button>
         </>
+      )}
+      {isShown === false && (
+        <button
+          className={styles.button}
+          onClick={async () => {
+            callConfirm();
+            router.refresh();
+          }}
+          style={{
+            width: "90vw",
+            maxWidth: "640px",
+            backgroundColor: "darkgoldenred",
+            marginBottom: "3em",
+          }}
+        >
+          DELETE
+        </button>
       )}
     </div>
   );

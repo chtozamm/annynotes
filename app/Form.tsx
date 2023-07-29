@@ -17,14 +17,13 @@ export default function Form({ createPost }: any) {
     const input = document.querySelector("input");
     if (input) input.value = "";
   }
-
   return (
     <div className={styles.formContainer}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           if (message) {
-            startTransition(() => createPost(message, senderName));
+            startTransition(() => createPost(senderName, message));
           }
           setMessage("");
           clearTextAreaValue();

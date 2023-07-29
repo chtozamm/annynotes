@@ -1,5 +1,5 @@
 .list {
-  margin: 2em auto 3em auto;
+  margin: 2em auto 0 auto;
   display: flex;
   width: 90vw;
   max-width: 640px;
@@ -58,4 +58,15 @@
   padding: 1em 2em 1.5em 2em;
   transition: all ease-in-out 0.3s;
   width: 100%;
+}
+
+.button {
+  background: none;
+  border: none;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border-bottom: 2px #f9c23c solid;
+  border-top: 2px #f9c23c solid;
 }

@@ -16,7 +16,7 @@ export default function Post({ post }: { post: any }) {
           />
           <span>Note</span>
           <br />
-          <Characters name={post.name} />
+          <Characters name={post.sender_name} />
         </h3>
         <p className={styles.content}>{post.message}</p>
       </li>

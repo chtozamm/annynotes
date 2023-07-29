@@ -12,7 +12,7 @@ export default function Characters({ name }: { name: string }) {
       }
       className={styles.senderName}
     >
-      {name ? `from ` + name : `left by a stranger`}
+      {name === "stranger" ? "left by a stranger" : `from ` + name}
       {name === "Jar Jar" && (
         <Image
           src={"/profile/jar-jar.png"}

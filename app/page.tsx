@@ -1,6 +1,6 @@
 import Form from "./Form";
 import Posts from "./Posts";
-import { createPost, getPosts } from "./utils";
+import { createPost, getPosts } from "@/pocketbase";
 
 export default async function Home() {
   const posts = await getPosts();
