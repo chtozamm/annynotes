@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import styles from "./form.module.css";
 
-export default function Form({ createPost, getPosts }: any) {
+export default function Form({ createPost }: any) {
   const [message, setMessage] = useState("");
   const [senderName, setSenderName] = useState("");
 
@@ -48,18 +48,6 @@ export default function Form({ createPost, getPosts }: any) {
         <button type="submit" className={styles.button}>
           POST
         </button>
-      </form>
-
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          startTransition(() => getPosts());
-        }}
-        className={styles.form}
-      >
-        {/* <button type="submit" className={styles.button}>
-          Refresh
-        </button> */}
       </form>
     </div>
   );

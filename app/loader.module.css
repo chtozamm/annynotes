@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #fff;
+  background-color: #f9c23c;
   z-index: 10;
   display: flex;
   justify-content: center;
@@ -18,7 +18,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #fff;
+  background-color: #f9c23c;
   z-index: 10;
   animation: dissapear ease-in-out 1s forwards;
   display: flex;
@@ -30,13 +30,13 @@
 .header {
   position: relative;
   z-index: 11;
-  color: #f9c23c;
+  color: #fff;
 }
 
 .headerAnimation {
   position: fixed;
   z-index: 11;
-  color: #f9c23c;
+  color: #fff;
   animation: dissapear ease-in-out 1s forwards;
 }
 
