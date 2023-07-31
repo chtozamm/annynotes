@@ -1,14 +1,23 @@
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import PocketBase from "pocketbase";
+import { Post } from "./types";
 
-export const pb = new PocketBase("https://annynotes.pockethost.io");
+export const pb = new PocketBase("http://127.0.0.1:8090");
 
 export async function getPosts() {
   "use server";
-  const data = await pb.collection("posts").getFullList({
+  const records = await pb.collection("posts").getFullList({
     sort: "-created",
+    fields: "id, sender_name, message",
   });
+  const data: Post[] = [];
+  records.map((record) =>
+    data.push({
+      id: record.id,
+      sender_name: record.sender_name,
+      message: record.message,
+    })
+  );
   revalidatePath("/");
   return data;
 }
@@ -20,11 +29,28 @@ export async function getPost(id: string) {
   return data;
 }
 
-export async function createPost(senderName: string, message: string) {
+export async function getPostByNameAndMessage(
+  sender_name: string,
+  message: string
+) {
+  "use server";
+  const data = await pb
+    .collection("posts")
+    .getFirstListItem(`sender_name="${sender_name}" && message="${message}"`);
+  revalidatePath("/");
+  return data;
+}
+
+export async function createPost(
+  id: string,
+  senderName: string,
+  message: string
+) {
   "use server";
   senderName === "" ? (senderName = "stranger") : senderName;
 
   const data = {
+    id: id,
     sender_name: senderName,
     message: message,
   };
@@ -50,11 +76,6 @@ export async function deletePost(id: string) {
   "use server";
   await pb.collection("posts").delete(id);
   revalidatePath("/");
-  try {
-    redirect("/");
-  } catch (err) {
-    console.error(err);
-  }
 }
 
 export async function getSenderPosts(sender_name: string) {

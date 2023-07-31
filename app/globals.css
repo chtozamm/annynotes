@@ -1,3 +1,19 @@
+:root {
+  --main-color: #fdd832;
+  --font-color: #000;
+  --background-color: #fff;
+  --pink: #ba5dc8;
+  --pink-light: #e3bee9;
+  --pink-dark: #501e57;
+  --yellow: #fdd832;
+  --yellow-sparkles: #eeb802;
+  --yellow-light: #fef24f;
+  --yellow-dark: #f8b600;
+  --grey: #777;
+  --fonts: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu,
+    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
 @font-face {
   font-family: "Ringbearer";
   src: url("/fonts/RINGM___.TTF") format("truetype");
@@ -15,14 +31,20 @@ body {
 
 body {
   min-height: 100vh;
-  font-family: "Ringbearer", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fff;
-  color: #000;
+  font-family: var(--fonts);
+  background-color: var(--background-color);
+  color: var(--font-color);
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Ringbearer";
 }
 
 h1,
 h2 {
-  color: #f9c23c;
+  color: var(--main-color);
   font-weight: 700;
   font-size: 2.5em;
 }
@@ -36,9 +58,12 @@ ul {
 }
 
 button {
+  font: inherit;
+  color: inherit;
   cursor: pointer;
   border: none;
   outline: none;
+  background: none;
 }
 
 a {
@@ -57,9 +82,11 @@ a {
 }
 
 .description {
+  font-family: "Ringbearer";
   margin-top: 3em;
   font-size: 1.1em;
-  color: #888;
+  line-height: 1.4em;
+  color: var(--grey);
   width: fit-content;
   margin: 0 auto;
 }
@@ -71,11 +98,11 @@ a {
 }
 
 .react-confirm-alert-body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--fonts);
   width: 400px;
   padding: 30px;
   text-align: left;
-  background: #fff;
+  background: var(--background-color);
   border-radius: 10px;
   box-shadow: 0 20px 75px rgba(0, 0, 0, 0.13);
   color: #666;
@@ -117,3 +144,37 @@ a {
   font-size: 12px;
   cursor: pointer;
 }
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.header img {
+  position: relative;
+  margin-left: 0.25em;
+  bottom: 0.15em;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --main-color: #cf8f18;
+    --button-color: #cf8f18;
+    --font-color: #eee;
+    --background-color: #151115;
+  }
+
+  body,
+  input,
+  textarea {
+    background-color: var(--background-color);
+    color: var(--font-color);
+  }
+  .description {
+    color: var(--font-color);
+  }
+} */

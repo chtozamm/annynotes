@@ -14,26 +14,24 @@
 }
 
 .card {
-  background-color: #fff;
-  border-top: 2px #f9c23c solid;
+  border-top: 2px var(--main-color) solid;
   border-radius: 16px;
   padding: 1em 2em 1.5em 2em;
-  transition: all ease-in-out 0.3s;
+  /* transition: all ease-in-out 0.3s; */
   width: 100%;
   position: relative;
 }
 
 .heading {
-  color: #f9c23c;
+  color: var(--main-color);
   position: relative;
 }
 
 .senderName {
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: var(--fonts);
   font-size: 0.8em;
   font-weight: 400;
-  color: #777;
+  color: var(--grey);
   font-style: italic;
 }
 
@@ -42,18 +40,23 @@
   margin-left: 0.5em;
 }
 
+.inputAvatar {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+
 .content {
   margin-top: 1.5em;
   white-space: pre-wrap;
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: var(--fonts);
   line-height: 1.4em;
 }
 
 .modal {
   position: absolute;
-  background-color: #fff;
-  border: 1px #f9c23c solid;
+  background-color: var(--background-color);
+  border: 1px var(--main-color) solid;
   border-radius: 16px;
   padding: 1em 2em 1.5em 2em;
   transition: all ease-in-out 0.3s;
@@ -61,12 +64,119 @@
 }
 
 .button {
-  background: none;
-  border: none;
-  width: 50px;
-  height: 50px;
-  margin: 0 auto;
-  border-radius: 50%;
-  border-bottom: 2px #f9c23c solid;
-  border-top: 2px #f9c23c solid;
+  background-color: var(--main-color);
+  color: #fff;
+  width: 100%;
+  border-radius: 16px;
+  height: 30px;
+  padding-top: 1.5em;
+  padding-bottom: 2.8em;
+  font-family: var(--fonts);
+  font-size: 0.8em;
+  font-weight: 900;
+  outline: none;
 }
+
+.button:focus {
+  outline: 2px solid var(--main-color);
+}
+
+.activeButton {
+  background-color: #fff;
+  border: 2px solid var(--main-color);
+  color: var(--main-color);
+}
+
+.returnButton {
+  outline: none;
+  border: none;
+  position: relative;
+  font-size: 1em;
+  color: #aaa;
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 1.5em;
+  background: none;
+  font-family: "Ringbearer";
+}
+
+.formCreateContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  margin: 1em auto;
+  width: 90vw;
+  max-width: 640px;
+}
+
+.formEditContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  margin: 1.5em auto 3em auto;
+  width: 90vw;
+  max-width: 640px;
+  padding: 1em 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 640px;
+  width: 100%;
+}
+
+.input,
+.textArea {
+  border: none;
+  border-left: 2px var(--main-color) solid;
+  border-right: 2px var(--main-color) solid;
+  border: 2px var(--main-color) solid;
+}
+
+.input {
+  border-radius: 16px;
+  font-family: var(--fonts);
+  font-size: 1em;
+  outline: none;
+  padding: 1em;
+  width: 90vw;
+  max-width: 640px;
+}
+
+.textArea {
+  border-radius: 16px;
+  font-family: var(--fonts);
+  font-size: 1em;
+  outline: none;
+  padding: 1em;
+  resize: none;
+  min-height: 162px;
+}
+
+.input:focus,
+.textArea:focus {
+  background-color: #fff9eb;
+}
+
+.actionsContainer {
+  display: grid;
+  gap: 1em;
+  margin-top: 3em;
+}
+
+.invisible {
+  display: none;
+}
+/* @media (prefers-color-scheme: dark) {
+  .senderName {
+    color: #ccc;
+  }
+  .card {
+    background-color: var(--background-color);
+    color: var(--font-color);
+  }
+} */
