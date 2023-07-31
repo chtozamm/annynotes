@@ -9,16 +9,14 @@ export default function Loader() {
     setAnimation(true);
     window.scrollTo(0, 0);
     setTimeout(() => {
-      const body = document.querySelector("body");
+      const body = document.querySelector("body") as HTMLBodyElement;
       if (body) body.style.overflow = "visible";
-      const appTitle = document.querySelector(".app-title");
-      if (appTitle) {
-        appTitle.classList.remove("app-title");
-      }
-      const loaderContainer = document.querySelector("#loaderContainer");
+      const loaderContainer = document.querySelector(
+        "#loaderContainer"
+      ) as HTMLDivElement;
       if (loaderContainer) loaderContainer.remove();
     }, 1000);
-  }, []);
+  });
   return (
     <div
       id="loaderContainer"

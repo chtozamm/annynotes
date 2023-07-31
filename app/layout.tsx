@@ -1,11 +1,20 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import Loader from "./Loader";
-import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Annynotes ✨",
+  title: "Annynotes - The world of fantasy ✨",
   description: "Share a legend or leave a note for a loved one",
+  openGraph: {
+    title: "Annynotes - The world of fantasy ✨",
+    description: "Share a legend or leave a note for a loved one",
+    url: "https://www.annynotes.fun",
+  },
+  twitter: {
+    title: "Annynotes - The world of fantasy ✨",
+    description: "Share a legend or leave a note for a loved one",
+  },
 };
 
 export default function RootLayout({
@@ -18,8 +27,14 @@ export default function RootLayout({
       <body>
         <main className="main-container">
           <Loader />
-          <h1>
-            <Link href="/">Annynotes ✨</Link>
+          <h1 className="header">
+            Annynotes
+            <Image
+              src={"/sparkles.svg"}
+              width={40}
+              height={40}
+              alt="sparkles"
+            />
           </h1>
           {children}
         </main>

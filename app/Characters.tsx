@@ -1,25 +1,40 @@
 import Image from "next/image";
-import styles from "./posts.module.css";
-import Link from "next/link";
 
-export default function Characters({ name }: { name: string }) {
+export default function Characters({
+  name,
+  className,
+}: {
+  name: string;
+  className: string;
+}) {
   return (
-    <Link
-      href={
-        name.includes("Jack Sparrow")
-          ? `/Captain_Jack_Sparrow`
-          : `/${name.replaceAll(" ", "_")}`
-      }
-      className={styles.senderName}
-    >
-      {name === "stranger" ? "left by a stranger" : `from ` + name}
+    <>
+      {name === "Yoda" && (
+        <Image
+          src={"/profile/yoda.png"}
+          width={27}
+          height={20}
+          alt="Yoda"
+          className={className}
+        />
+      )}
+      {name.includes("Little Anakin") && (
+        <Image
+          src={"/profile/little-anakin.png"}
+          width={20}
+          height={20}
+          alt="Little Anakin Skywalker"
+          className={className}
+        />
+      )}
+
       {name === "Jar Jar" && (
         <Image
           src={"/profile/jar-jar.png"}
           width={20}
           height={20}
           alt="Jar Jar"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
       {name === "Darth Vader" && (
@@ -28,7 +43,7 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Darth Vader"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
       {name === "Geralt of Rivia" && (
@@ -37,7 +52,7 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Geralt of Rivia"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
       {name === "Town's Guard" && (
@@ -46,7 +61,7 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Guard from Skyrim"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
 
@@ -56,7 +71,7 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Obi-Wan Kenobi"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
       {name === "Anakin Skywalker" && (
@@ -65,7 +80,7 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Anakin Skywalker"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
 
@@ -75,7 +90,7 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Bilbo Baggins"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
       {name === "Indiana Jones" && (
@@ -84,7 +99,7 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Indiana Jones"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
       {name === "Gollum" && (
@@ -93,7 +108,7 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Gollum"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
       {name === "Samwise Gamgee" && (
@@ -102,7 +117,7 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Samwise Gamgee"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
       {name === "Frodo Baggins" && (
@@ -111,7 +126,7 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Frodo Baggins"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
       {name.includes("Jack Sparrow") && (
@@ -120,7 +135,7 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Captain Jack Sparrow"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
       {name === "Sherry" && (
@@ -129,7 +144,7 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Sherry"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
       {name === "Morton" && (
@@ -138,9 +153,9 @@ export default function Characters({ name }: { name: string }) {
           width={20}
           height={20}
           alt="Morton"
-          className={styles.profilePicture}
+          className={className}
         />
       )}
-    </Link>
+    </>
   );
 }
