@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "Annynotes - The world of fantasy ✨",
     description: "Share a legend or leave a note for a loved one",
+    card: "summary_large_image",
   },
 };
 
