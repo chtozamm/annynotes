@@ -65,7 +65,7 @@ export default function Posts({
 
   // Show all posts again
   async function returnToAllPosts() {
-    // setSenderName("");
+    setSenderName("");
     updateInputValue(senderName);
     setMessage("");
     setCurrentPostId("");
@@ -225,7 +225,7 @@ export default function Posts({
                               );
                             }}
                           >
-                            {n ? `Note #${n}` : "Note"}
+                            {isPostPage ? "Note" : `Note #${n}`}
                           </button>
                           <br />
                           <button
