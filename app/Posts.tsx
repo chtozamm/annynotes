@@ -53,7 +53,11 @@ export default function Posts({
     }
   }
 
-  function getPostById(id: string) {
+  function getPostById(id: string, sender_name: string, message: string) {
+    setCurrentPostId(id);
+    setSenderName(sender_name);
+    setMessage(message);
+
     setShowAll(true);
     setPosts(data.filter((post: Post) => post.id === id));
     setIsPostPage(true);
@@ -177,6 +181,7 @@ export default function Posts({
               )}
             </div>
           )}
+<<<<<<< HEAD
           {showAll && isEditing === false && (
             <button
               className={styles.returnButton}
@@ -234,92 +239,152 @@ export default function Posts({
                           <Characters
                             name={post.sender_name}
                             className={styles.profilePicture}
+=======
+          <section>
+            {showAll && isEditing === false && (
+              <button
+                className={styles.returnButton}
+                onClick={() => {
+                  returnToAllPosts();
+                }}
+              >
+                <span style={{ position: "absolute", left: "-1.5em" }}>←</span>
+                back to all notes
+              </button>
+            )}
+            {isPostPage === false && isSenderPage && (
+              <h2 style={{ marginTop: "1em" }}>Notes from {senderName}:</h2>
+            )}
+            {isPostPage === false && isSenderPage === false && (
+              <h2>Recent notes:</h2>
+            )}
+            <ul className={isEditing ? styles.invisible : styles.list}>
+              {posts.map((post: Post) => {
+                n--;
+                return (
+                  <li key={post.id} className={styles.card}>
+                    {isEditing === false && (
+                      <>
+                        <h4 className={styles.heading}>
+                          <Image
+                            src={"/scroll-icon.svg"}
+                            width={26}
+                            height={26}
+                            alt="scroll icon"
+                            className={styles.scrollIcon}
+>>>>>>> 53ff7ff (redesign, fix content overflow break-word)
                           />
-                        </button>
-                      </h3>
-                      <p className={styles.content}>{post.message}</p>
-                      {isPostPage && isEditing === false && (
-                        <div className={styles.actionsContainer}>
                           <button
                             onClick={() => {
-                              setCurrentPostId(post.id);
-                              toggleEditing(true);
+                              getPostById(
+                                post.id,
+                                post.sender_name,
+                                post.message
+                              );
+                            }}
+                          >
+                            {n ? `Note #${n}` : "Note"}
+                          </button>
+                          <br />
+                          <button
+                            onClick={() => {
+                              getSenderPosts(post.sender_name);
                               setSenderName(post.sender_name);
-                              setMessage(post.message);
+                              setIsSenderPage(true);
                             }}
-                            className={styles.button}
+                            className={styles.senderName}
                           >
-                            EDIT
+                            {post.sender_name === "stranger"
+                              ? "left by a stranger"
+                              : `from ` + post.sender_name}
+
+                            <Characters
+                              name={post.sender_name}
+                              className={styles.profilePicture}
+                            />
                           </button>
-                          <button
-                            onClick={() => {
-                              callConfirm(post.id);
-                            }}
-                            className={styles.button}
-                          >
-                            DELETE
-                          </button>
-                        </div>
-                      )}
-                    </>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-          {isPostPage && (
-            <>
-              <div className={styles.formEditContainer}>
-                {isEditing && (
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      if (message) {
-                        updatePost(currentPostId, senderName, message);
-                        const updatedPost = data.find(
-                          (p: Post) => p.id === currentPostId
-                        );
-                        updatedPost["sender_name"] = senderName;
-                        updatedPost["message"] = message;
-                      }
-                      toggleEditing(false);
-                    }}
-                    className={styles.form}
-                  >
-                    <h2>Edit note:</h2>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Edit name"
-                      value={senderName}
-                      className={styles.input}
-                      onChange={(e) => setSenderName(e.target.value)}
-                    />
-                    <textarea
-                      id="textarea"
-                      className={styles.textArea}
-                      placeholder="Edit message"
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      name="message"
-                    />
-                    <button type="submit" className={styles.button}>
-                      UPDATE
-                    </button>
-                  </form>
-                )}
-                {isEditing && (
-                  <button
-                    onClick={() => toggleEditing(false)}
-                    className={`${styles.button}
-                                ${styles.activeButton}`}
-                  >
-                    CANCEL
-                  </button>
-                )}
+                        </h4>
+                        <p className={styles.content}>{post.message}</p>
+                      </>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+            {isPostPage && isEditing === false && (
+              <div className={styles.actionsContainer}>
+                <button
+                  onClick={() => {
+                    toggleEditing(true);
+                  }}
+                  className={styles.button}
+                >
+                  EDIT
+                </button>
+                <button
+                  onClick={() => {
+                    callConfirm(currentPostId);
+                  }}
+                  className={`${styles.button} ${styles.activeButton}`}
+                >
+                  DELETE
+                </button>
               </div>
-            </>
-          )}
+            )}
+            {isPostPage && (
+              <>
+                <div className={styles.formEditContainer}>
+                  {isEditing && (
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        if (message) {
+                          updatePost(currentPostId, senderName, message);
+                          const updatedPost = data.find(
+                            (p: Post) => p.id === currentPostId
+                          );
+                          updatedPost["sender_name"] = senderName;
+                          updatedPost["message"] = message;
+                        }
+                        toggleEditing(false);
+                      }}
+                      className={styles.form}
+                    >
+                      <h2>Edit note:</h2>
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Edit name"
+                        value={senderName}
+                        className={styles.input}
+                        onChange={(e) => setSenderName(e.target.value)}
+                      />
+                      <textarea
+                        id="textarea"
+                        className={styles.textArea}
+                        placeholder="Edit message"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        name="message"
+                      />
+                      <button type="submit" className={styles.button}>
+                        UPDATE
+                      </button>
+                    </form>
+                  )}
+                  {isEditing && (
+                    <button
+                      onClick={() => toggleEditing(false)}
+                      className={`${styles.button}
+                                ${styles.activeButton}`}
+                    >
+                      CANCEL
+                    </button>
+                  )}
+                </div>
+              </>
+            )}
+          </section>
         </>
       )}
     </>
