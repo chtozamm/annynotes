@@ -28,17 +28,6 @@ export default function RootLayout({
       <body>
         <main className="main-container">
           <Loader />
-          <header>
-            <h1 className="header">
-              Annynotes
-              <Image
-                src={"/sparkles-orange.svg"}
-                width={40}
-                height={40}
-                alt="sparkles"
-              />
-            </h1>
-          </header>
           {children}
         </main>
       </body>

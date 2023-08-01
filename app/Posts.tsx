@@ -31,7 +31,7 @@ export default function Posts({
   const [currentPostId, setCurrentPostId] = useState("");
 
   // Get quantity of posts
-  let n = posts.length + 1;
+  let n = posts.length;
 
   // Filter posts by sender_name
   function getSenderPosts(sender_name: string) {
@@ -40,16 +40,20 @@ export default function Posts({
 
     if (sender_name.includes("Jack Sparrow")) {
       setPosts(
-        data.filter((post: Post) => post.sender_name.includes("Jack Sparrow"))
+        data
+          .filter((post: Post) => post.sender_name.includes("Jack Sparrow"))
+          .reverse()
       );
     } else if (sender_name.includes("Anakin Skywalker")) {
       setPosts(
-        data.filter((post: Post) =>
-          post.sender_name.includes("Anakin Skywalker")
-        )
+        data
+          .filter((post: Post) => post.sender_name.includes("Anakin Skywalker"))
+          .reverse()
       );
     } else {
-      setPosts(data.filter((post: Post) => post.sender_name === sender_name));
+      setPosts(
+        data.filter((post: Post) => post.sender_name === sender_name).reverse()
+      );
     }
   }
 
@@ -57,9 +61,9 @@ export default function Posts({
     setCurrentPostId(id);
     setSenderName(sender_name);
     setMessage(message);
-
     setShowAll(true);
     setPosts(data.filter((post: Post) => post.id === id));
+    setIsSenderPage(false);
     setIsPostPage(true);
   }
 
@@ -118,6 +122,22 @@ export default function Posts({
 
   return (
     <>
+      {isSenderPage === false && (
+        <header>
+          <h1 className="header">
+            Annynotes
+            <Image
+              src={"/sparkles-orange.svg"}
+              width={40}
+              height={40}
+              alt="sparkles"
+            />
+          </h1>
+          <p className="description">
+            Share a legend or leave a note for a loved one
+          </p>
+        </header>
+      )}
       {data.length === 0 ? (
         <ErrorMessage />
       ) : (
@@ -183,27 +203,15 @@ export default function Posts({
             </div>
           )}
           <section>
-            {showAll && isEditing === false && (
-              <button
-                className={styles.returnButton}
-                onClick={() => {
-                  returnToAllPosts();
-                  window.scrollTo(0, 0);
-                }}
-              >
-                <span style={{ position: "absolute", left: "-1.5em" }}>←</span>
-                back to all notes
-              </button>
-            )}
             {isPostPage === false && isSenderPage && (
-              <h2 style={{ marginTop: "1em" }}>Notes from {senderName}:</h2>
+              <h2>Notes from {senderName}:</h2>
             )}
             {isPostPage === false && isSenderPage === false && (
               <h2>Recent notes:</h2>
             )}
             <ul className={isEditing ? styles.invisible : styles.list}>
               {posts.map((post: Post) => {
-                n--;
+                // n--;
                 return (
                   <li key={post.id} className={styles.card}>
                     {isEditing === false && (
@@ -225,7 +233,11 @@ export default function Posts({
                               );
                             }}
                           >
-                            {isPostPage ? "Note" : `Note #${n}`}
+                            {isPostPage && isSenderPage === false ? "Note" : ""}
+                            {isPostPage === false &&
+                              isSenderPage === false &&
+                              `Note #${n--}`}
+                            {isSenderPage && `Note #${n++ - posts.length + 1}`}
                           </button>
                           <br />
                           <button
@@ -326,6 +338,18 @@ export default function Posts({
                   )}
                 </div>
               </>
+            )}
+            {showAll && isEditing === false && (
+              <button
+                className={styles.returnButton}
+                onClick={() => {
+                  returnToAllPosts();
+                  window.scrollTo(0, 0);
+                }}
+              >
+                <span style={{ position: "absolute", left: "-1.5em" }}>←</span>
+                back to all notes
+              </button>
             )}
           </section>
         </>
