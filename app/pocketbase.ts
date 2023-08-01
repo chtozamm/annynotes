@@ -8,7 +8,7 @@ export async function getPosts() {
   "use server";
   const records = await pb.collection("posts").getFullList({
     sort: "-created",
-    fields: "id, sender_name, message",
+    fields: "id, sender_name, message, created",
   });
   const data: Post[] = [];
   records.map((record) =>
@@ -16,6 +16,7 @@ export async function getPosts() {
       id: record.id,
       sender_name: record.sender_name,
       message: record.message,
+      created: record.created,
     })
   );
   revalidatePath("/");
@@ -53,6 +54,7 @@ export async function createPost(
     id: id,
     sender_name: senderName,
     message: message,
+    created: Date.now(),
   };
   await pb.collection("posts").create(data);
   revalidatePath("/");

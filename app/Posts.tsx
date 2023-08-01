@@ -134,6 +134,7 @@ export default function Posts({
                         id: id,
                         sender_name: senderName || "stranger",
                         message: message,
+                        created: Date.now(),
                       });
                       createPost(id, senderName, message);
                     }
@@ -307,6 +308,10 @@ export default function Posts({
                           </button>
                         </h4>
                         <p className={styles.content}>{post.message}</p>
+                        <p className={styles.date}>
+                          {`at `}
+                          {post.created}
+                        </p>
                       </>
                     )}
                   </li>

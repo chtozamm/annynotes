@@ -98,8 +98,8 @@ a {
   font-size: 1.1em;
   line-height: 1.4em;
   color: var(--grey);
-  width: fit-content;
   margin: 0 auto;
+  margin-bottom: 0.5em;
 }
 
 .container {
@@ -163,6 +163,7 @@ a {
   position: relative;
   width: fit-content;
   margin: 0 auto;
+  margin-bottom: 0.3em;
 }
 
 .header img {
