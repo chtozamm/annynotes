@@ -186,6 +186,10 @@
 .invisible {
   display: none;
 }
+
+.reverseButton {
+  margin-top: 1em;
+}
 /* @media (prefers-color-scheme: dark) {
   .senderName {
     color: #ccc;

@@ -13,6 +13,7 @@ import {
   updateInputValue,
 } from "./utils";
 import ErrorMessage from "./ErrorMessage";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 export default function Posts({
   data,
@@ -29,9 +30,12 @@ export default function Posts({
   const [senderName, setSenderName] = useState("");
   const [isCreatingPost, setCreatingPost] = useState(false);
   const [currentPostId, setCurrentPostId] = useState("");
+  const [isReversed, setReversed] = useState(false);
 
   // Get quantity of posts
   let n = posts.length;
+
+  const router = useRouter();
 
   // Filter posts by sender_name
   function getSenderPosts(sender_name: string) {
@@ -127,7 +131,7 @@ export default function Posts({
           <h1 className="header">
             Annynotes
             <Image
-              src={"/sparkles-orange.svg"}
+              src={"/sparkles.svg"}
               width={40}
               height={40}
               alt="sparkles"
@@ -209,6 +213,47 @@ export default function Posts({
             {isPostPage === false && isSenderPage === false && (
               <h2>Recent notes:</h2>
             )}
+            {isPostPage === false && (
+              <>
+                {isSenderPage && (
+                  <button
+                    className={styles.returnButton}
+                    onClick={() => {
+                      returnToAllPosts();
+                      window.scrollTo(0, 0);
+                    }}
+                    style={{
+                      transform: "translate(-0.5em, -0.3em)",
+                      margin: 0,
+                    }}
+                  >
+                    <span
+                      style={{
+                        // position: "absolute",
+                        // left: "-1.5em",
+                        verticalAlign: "middle",
+                      }}
+                    >
+                      ←
+                    </span>
+                  </button>
+                )}
+                <button
+                  onClick={() => {
+                    setReversed(!isReversed);
+                    setPosts(posts.toReversed());
+                  }}
+                  className={styles.reverseButton}
+                >
+                  <Image
+                    src={"/reverse-icon.svg"}
+                    width={24}
+                    height={24}
+                    alt="reverse order"
+                  />
+                </button>
+              </>
+            )}
             <ul className={isEditing ? styles.invisible : styles.list}>
               {posts.map((post: Post) => {
                 // n--;
@@ -226,6 +271,9 @@ export default function Posts({
                           />
                           <button
                             onClick={() => {
+                              // router.push(
+                              //   `posts/${post.id}?sender_name=${post.sender_name}`
+                              // );
                               getPostById(
                                 post.id,
                                 post.sender_name,
@@ -236,8 +284,16 @@ export default function Posts({
                             {isPostPage && isSenderPage === false ? "Note" : ""}
                             {isPostPage === false &&
                               isSenderPage === false &&
+                              isReversed &&
+                              `Note #${n++ - posts.length + 1}`}
+                            {isPostPage === false &&
+                              isSenderPage === false &&
+                              isReversed === false &&
                               `Note #${n--}`}
-                            {isSenderPage && `Note #${n++ - posts.length + 1}`}
+                            {isSenderPage && isReversed && `Note #${n--}`}
+                            {isSenderPage &&
+                              isReversed === false &&
+                              `Note #${n++ - posts.length + 1}`}
                           </button>
                           <br />
                           <button
