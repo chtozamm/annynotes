@@ -182,6 +182,7 @@ export default function Posts({
               className={styles.returnButton}
               onClick={() => {
                 returnToAllPosts();
+                window.scrollTo(0, 0)
               }}
             >
               <span style={{ position: "absolute", left: "-1.5em" }}>←</span>
@@ -222,6 +223,7 @@ export default function Posts({
                             getSenderPosts(post.sender_name);
                             setSenderName(post.sender_name);
                             setIsSenderPage(true);
+                            window.scroll(0, 0)
                           }}
                           className={styles.senderName}
                         >
