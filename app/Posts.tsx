@@ -182,65 +182,6 @@ export default function Posts({
               )}
             </div>
           )}
-<<<<<<< HEAD
-          {showAll && isEditing === false && (
-            <button
-              className={styles.returnButton}
-              onClick={() => {
-                returnToAllPosts();
-                window.scrollTo(0, 0)
-              }}
-            >
-              <span style={{ position: "absolute", left: "-1.5em" }}>←</span>
-              back to all notes
-            </button>
-          )}
-          {isPostPage === false && isSenderPage && (
-            <h2 style={{ marginTop: "1em" }}>Notes from {senderName}:</h2>
-          )}
-          {isPostPage === false && isSenderPage === false && (
-            <h2>Recent notes:</h2>
-          )}
-          <ul className={isEditing ? styles.invisible : styles.list}>
-            {posts.map((post: Post) => {
-              n--;
-              return (
-                <li key={post.id} className={styles.card}>
-                  {isEditing === false && (
-                    <>
-                      <h3 className={styles.heading}>
-                        <Image
-                          src={"/scroll-icon.svg"}
-                          width={26}
-                          height={26}
-                          alt="scroll icon"
-                          className={styles.scrollIcon}
-                        />
-                        <button
-                          onClick={() => {
-                            getPostById(post.id);
-                          }}
-                        >
-                          {n ? `Note #${n}` : "Note"}
-                        </button>
-                        <br />
-                        <button
-                          onClick={() => {
-                            getSenderPosts(post.sender_name);
-                            setSenderName(post.sender_name);
-                            setIsSenderPage(true);
-                            window.scroll(0, 0)
-                          }}
-                          className={styles.senderName}
-                        >
-                          {post.sender_name === "stranger"
-                            ? "left by a stranger"
-                            : `from ` + post.sender_name}
-
-                          <Characters
-                            name={post.sender_name}
-                            className={styles.profilePicture}
-=======
           <section>
             {showAll && isEditing === false && (
               <button
@@ -274,7 +215,6 @@ export default function Posts({
                             height={26}
                             alt="scroll icon"
                             className={styles.scrollIcon}
->>>>>>> 53ff7ff (redesign, fix content overflow break-word)
                           />
                           <button
                             onClick={() => {
@@ -308,10 +248,6 @@ export default function Posts({
                           </button>
                         </h4>
                         <p className={styles.content}>{post.message}</p>
-                        <p className={styles.date}>
-                          {`at `}
-                          {post.created}
-                        </p>
                       </>
                     )}
                   </li>
