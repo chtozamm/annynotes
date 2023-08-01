@@ -1,11 +1,11 @@
 :root {
-  --main-color: #fdd832;
+  --main-color: #ffb220;
   --font-color: #000;
   --background-color: #fff;
   --pink: #ba5dc8;
   --pink-light: #e3bee9;
   --pink-dark: #501e57;
-  --yellow: #fdd832;
+  --yellow-main: #fdd832;
   --yellow-sparkles: #eeb802;
   --yellow-light: #fef24f;
   --yellow-dark: #f8b600;
@@ -23,6 +23,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-size: 1em;
 }
 
 body {
@@ -38,8 +39,10 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: "Ringbearer";
+  font-size: 1em;
 }
 
 h1,
@@ -50,7 +53,15 @@ h2 {
 }
 
 h2 {
+  font-size: 2em;
+}
+
+h3 {
   font-size: 1.5em;
+}
+
+h4 {
+  font-size: 1.2em;
 }
 
 ul {
@@ -83,7 +94,7 @@ a {
 
 .description {
   font-family: "Ringbearer";
-  margin-top: 3em;
+  /* padding-top: 1.5em; */
   font-size: 1.1em;
   line-height: 1.4em;
   color: var(--grey);
