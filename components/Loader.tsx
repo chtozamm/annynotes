@@ -15,7 +15,7 @@ export default function Loader() {
         "#loaderContainer"
       ) as HTMLDivElement;
       if (loaderContainer) loaderContainer.remove();
-    }, 1000);
+    }, 1500);
   });
   return (
     <div

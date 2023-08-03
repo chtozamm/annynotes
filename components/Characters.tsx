@@ -11,7 +11,7 @@ export default function Characters({
     <>
       {name === "Yoda" && (
         <Image
-          src={"/profile/yoda.png"}
+          src={"/pictures/yoda.png"}
           width={27}
           height={20}
           alt="Yoda"
@@ -20,7 +20,7 @@ export default function Characters({
       )}
       {name.includes("Little Anakin") && (
         <Image
-          src={"/profile/little-anakin.png"}
+          src={"/pictures/little-anakin.png"}
           width={20}
           height={20}
           alt="Little Anakin Skywalker"
@@ -30,7 +30,7 @@ export default function Characters({
 
       {name === "Jar Jar" && (
         <Image
-          src={"/profile/jar-jar.png"}
+          src={"/pictures/jar-jar.png"}
           width={20}
           height={20}
           alt="Jar Jar"
@@ -39,7 +39,7 @@ export default function Characters({
       )}
       {name === "Darth Vader" && (
         <Image
-          src={"/profile/darth-vader.png"}
+          src={"/pictures/darth-vader.png"}
           width={20}
           height={20}
           alt="Darth Vader"
@@ -48,7 +48,7 @@ export default function Characters({
       )}
       {name === "Geralt of Rivia" && (
         <Image
-          src={"/profile/geralt.png"}
+          src={"/pictures/geralt.png"}
           width={20}
           height={20}
           alt="Geralt of Rivia"
@@ -57,7 +57,7 @@ export default function Characters({
       )}
       {name === "Town's Guard" && (
         <Image
-          src={"/profile/guard.png"}
+          src={"/pictures/guard.png"}
           width={20}
           height={20}
           alt="Guard from Skyrim"
@@ -67,7 +67,7 @@ export default function Characters({
 
       {name === "Obi-Wan Kenobi" && (
         <Image
-          src={"/profile/obi.png"}
+          src={"/pictures/obi.png"}
           width={20}
           height={20}
           alt="Obi-Wan Kenobi"
@@ -76,7 +76,7 @@ export default function Characters({
       )}
       {name === "Anakin Skywalker" && (
         <Image
-          src={"/profile/anakin.png"}
+          src={"/pictures/anakin.png"}
           width={20}
           height={20}
           alt="Anakin Skywalker"
@@ -86,7 +86,7 @@ export default function Characters({
 
       {name === "Bilbo Baggins" && (
         <Image
-          src={"/profile/bilbo-baggins.png"}
+          src={"/pictures/bilbo-baggins.png"}
           width={20}
           height={20}
           alt="Bilbo Baggins"
@@ -95,7 +95,7 @@ export default function Characters({
       )}
       {name === "Indiana Jones" && (
         <Image
-          src={"/profile/indiana-jones.png"}
+          src={"/pictures/indiana-jones.png"}
           width={20}
           height={20}
           alt="Indiana Jones"
@@ -104,7 +104,7 @@ export default function Characters({
       )}
       {name === "Gollum" && (
         <Image
-          src={"/profile/gollum.png"}
+          src={"/pictures/gollum.png"}
           width={20}
           height={20}
           alt="Gollum"
@@ -113,7 +113,7 @@ export default function Characters({
       )}
       {name === "Samwise Gamgee" && (
         <Image
-          src={"/profile/sam.png"}
+          src={"/pictures/sam.png"}
           width={20}
           height={20}
           alt="Samwise Gamgee"
@@ -122,7 +122,7 @@ export default function Characters({
       )}
       {name === "Frodo Baggins" && (
         <Image
-          src={"/profile/frodo.png"}
+          src={"/pictures/frodo.png"}
           width={20}
           height={20}
           alt="Frodo Baggins"
@@ -131,7 +131,7 @@ export default function Characters({
       )}
       {name.includes("Jack Sparrow") && (
         <Image
-          src={"/profile/jack-sparrow.png"}
+          src={"/pictures/jack-sparrow.png"}
           width={20}
           height={20}
           alt="Captain Jack Sparrow"
@@ -140,7 +140,7 @@ export default function Characters({
       )}
       {name === "Sherry" && (
         <Image
-          src={"/profile/sherry.png"}
+          src={"/pictures/sherry.png"}
           width={20}
           height={20}
           alt="Sherry"
@@ -149,7 +149,7 @@ export default function Characters({
       )}
       {name === "Morton" && (
         <Image
-          src={"/profile/morton-1.png"}
+          src={"/pictures/morton-1.png"}
           width={20}
           height={20}
           alt="Morton"

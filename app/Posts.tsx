@@ -3,17 +3,20 @@
 import styles from "./posts.module.css";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import Characters from "./Characters";
-import { Post } from "./types";
+import Characters from "@/components/Characters";
+import { Post } from "@/utils/types";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import {
   generateUniqueId,
   clearTextAreaValue,
   updateInputValue,
-} from "./utils";
-import ErrorMessage from "./ErrorMessage";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+} from "@/utils/utils";
+import ErrorMessage from "../components/ErrorMessage";
+import { useRouter } from "next/navigation";
+
+// Creates context to share posts data between pages
+// const PostsContext = createContext(null);
 
 export default function Posts({
   data,
@@ -30,7 +33,8 @@ export default function Posts({
   const [senderName, setSenderName] = useState("");
   const [isCreatingPost, setCreatingPost] = useState(false);
   const [currentPostId, setCurrentPostId] = useState("");
-  const [isReversed, setReversed] = useState(false);
+  const [isAllPostsReversed, setAllPostsReversed] = useState(false);
+  const [isSenderPostsReversed, setSenderPostsReversed] = useState(false);
 
   // Get quantity of posts
   let n = posts.length;
@@ -44,20 +48,16 @@ export default function Posts({
 
     if (sender_name.includes("Jack Sparrow")) {
       setPosts(
-        data
-          .filter((post: Post) => post.sender_name.includes("Jack Sparrow"))
-          .reverse()
+        data.filter((post: Post) => post.sender_name.includes("Jack Sparrow"))
       );
     } else if (sender_name.includes("Anakin Skywalker")) {
       setPosts(
-        data
-          .filter((post: Post) => post.sender_name.includes("Anakin Skywalker"))
-          .reverse()
+        data.filter((post: Post) =>
+          post.sender_name.includes("Anakin Skywalker")
+        )
       );
     } else {
-      setPosts(
-        data.filter((post: Post) => post.sender_name === sender_name).reverse()
-      );
+      setPosts(data.filter((post: Post) => post.sender_name === sender_name));
     }
   }
 
@@ -73,6 +73,8 @@ export default function Posts({
 
   // Show all posts again
   async function returnToAllPosts() {
+    setAllPostsReversed(false);
+    setSenderPostsReversed(false);
     setSenderName("");
     updateInputValue(senderName);
     setMessage("");
@@ -131,7 +133,7 @@ export default function Posts({
           <h1 className="header">
             Annynotes
             <Image
-              src={"/sparkles.svg"}
+              src={"/icons/sparkles.svg"}
               width={40}
               height={40}
               alt="sparkles"
@@ -216,42 +218,60 @@ export default function Posts({
             {isPostPage === false && (
               <>
                 {isSenderPage && (
-                  <button
-                    className={styles.returnButton}
-                    onClick={() => {
-                      returnToAllPosts();
-                      window.scrollTo(0, 0);
-                    }}
-                    style={{
-                      transform: "translate(-0.5em, -0.3em)",
-                      margin: 0,
-                    }}
-                  >
-                    <span
+                  <>
+                    <button
+                      className={styles.returnButton}
+                      onClick={() => {
+                        returnToAllPosts();
+                        window.scrollTo(0, 0);
+                      }}
                       style={{
-                        // position: "absolute",
-                        // left: "-1.5em",
-                        verticalAlign: "middle",
+                        transform: "translate(-0.5em, -0.3em)",
+                        margin: 0,
                       }}
                     >
-                      ←
-                    </span>
+                      <span
+                        style={{
+                          // position: "absolute",
+                          // left: "-1.5em",
+                          verticalAlign: "middle",
+                        }}
+                      >
+                        ←
+                      </span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSenderPostsReversed(!isSenderPostsReversed);
+                        setPosts(posts.toReversed());
+                      }}
+                      className={styles.reverseButton}
+                    >
+                      <Image
+                        src={"/icons/reverse-icon.svg"}
+                        width={24}
+                        height={24}
+                        alt="reverse order"
+                      />
+                    </button>
+                  </>
+                )}
+                {isSenderPage === false && (
+                  <button
+                    onClick={() => {
+                      setAllPostsReversed(!isAllPostsReversed);
+                      setPosts(posts.toReversed());
+                    }}
+                    className={styles.reverseButton}
+                  >
+                    <Image
+                      src={"/icons/reverse-icon.svg"}
+                      width={24}
+                      height={24}
+                      alt="reverse order"
+                    />
                   </button>
                 )}
-                <button
-                  onClick={() => {
-                    setReversed(!isReversed);
-                    setPosts(posts.toReversed());
-                  }}
-                  className={styles.reverseButton}
-                >
-                  <Image
-                    src={"/reverse-icon.svg"}
-                    width={24}
-                    height={24}
-                    alt="reverse order"
-                  />
-                </button>
               </>
             )}
             <ul className={isEditing ? styles.invisible : styles.list}>
@@ -263,7 +283,7 @@ export default function Posts({
                       <>
                         <h4 className={styles.heading}>
                           <Image
-                            src={"/scroll-icon.svg"}
+                            src={"/icons/scroll-icon.svg"}
                             width={26}
                             height={26}
                             alt="scroll icon"
@@ -271,9 +291,7 @@ export default function Posts({
                           />
                           <button
                             onClick={() => {
-                              // router.push(
-                              //   `posts/${post.id}?sender_name=${post.sender_name}`
-                              // );
+                              router.push(`/posts/${post.id}`);
                               getPostById(
                                 post.id,
                                 post.sender_name,
@@ -281,19 +299,22 @@ export default function Posts({
                               );
                             }}
                           >
+                            {/* {isSenderPage ===} */}
                             {isPostPage && isSenderPage === false ? "Note" : ""}
                             {isPostPage === false &&
                               isSenderPage === false &&
-                              isReversed &&
+                              isAllPostsReversed &&
                               `Note #${n++ - posts.length + 1}`}
                             {isPostPage === false &&
                               isSenderPage === false &&
-                              isReversed === false &&
+                              isAllPostsReversed === false &&
                               `Note #${n--}`}
-                            {isSenderPage && isReversed && `Note #${n--}`}
                             {isSenderPage &&
-                              isReversed === false &&
+                              isSenderPostsReversed &&
                               `Note #${n++ - posts.length + 1}`}
+                            {isSenderPage &&
+                              isSenderPostsReversed === false &&
+                              `Note #${n--}`}
                           </button>
                           <br />
                           <button
