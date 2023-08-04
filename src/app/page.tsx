@@ -5,7 +5,7 @@ import {
   getPosts,
   updatePost,
   getPostByNameAndMessage,
-} from "@/app/pocketbase";
+} from "@/utils/pocketbase";
 
 export default async function Home() {
   let posts = await getPosts().catch((err) => {

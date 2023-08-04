@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./loader.module.css";
+import styles from "@/styles/loader.module.css";
 import { useEffect, useState } from "react";
 
 export default function Loader() {
@@ -15,7 +15,7 @@ export default function Loader() {
         "#loaderContainer"
       ) as HTMLDivElement;
       if (loaderContainer) loaderContainer.remove();
-    }, 1000);
+    }, 1500);
   });
   return (
     <div

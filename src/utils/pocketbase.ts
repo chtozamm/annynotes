@@ -1,6 +1,6 @@
 import { revalidatePath } from "next/cache";
 import PocketBase from "pocketbase";
-import { Post } from "./types";
+import { Post } from "@/utils/types";
 
 export const pb = new PocketBase("https://annynotes.pockethost.io/");
 

@@ -13,22 +13,22 @@
 }
 
 .containerAnimation {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background-color: var(--main-color);
   z-index: 10;
-  animation: dissapear ease-in-out 1s forwards;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  animation: dissapear ease-out 1.5s forwards;
 }
 
 .header {
-  position: relative;
+  position: fixed;
   z-index: 11;
   color: #fff;
 }
@@ -37,7 +37,7 @@
   position: fixed;
   z-index: 11;
   color: #fff;
-  animation: dissapear ease-in-out 1s forwards;
+  animation: dissapear ease-out 1.5s forwards;
 }
 
 @keyframes dissapear {

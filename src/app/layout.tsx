@@ -1,7 +1,6 @@
-import "./globals.css";
+import "@/styles/globals.css";
 import type { Metadata } from "next";
-import Loader from "./Loader";
-import Image from "next/image";
+import Loader from "@/components/Loader";
 
 export const metadata: Metadata = {
   title: "Annynotes - The world of fantasy ✨",
@@ -18,17 +17,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
         <main className="main-container">
           <Loader />
-          {children}
+          {props.children}
         </main>
       </body>
     </html>
