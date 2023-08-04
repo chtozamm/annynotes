@@ -1,4 +1,4 @@
-import "./globals.css";
+import "@/styles/globals.css";
 import type { Metadata } from "next";
 import Loader from "@/components/Loader";
 
@@ -17,17 +17,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout(props: {
-  children: React.ReactNode;
-  modal: React.ReactNode;
-}) {
+export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
         <main className="main-container">
           <Loader />
           {props.children}
-          {props.modal}
         </main>
       </body>
     </html>

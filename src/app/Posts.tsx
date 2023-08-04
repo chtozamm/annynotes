@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./posts.module.css";
+import styles from "@/styles/posts.module.css";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import Characters from "@/components/Characters";
@@ -12,8 +12,7 @@ import {
   clearTextAreaValue,
   updateInputValue,
 } from "@/utils/utils";
-import ErrorMessage from "../components/ErrorMessage";
-import { useRouter } from "next/navigation";
+import ErrorMessage from "@/components/ErrorMessage";
 
 // Creates context to share posts data between pages
 // const PostsContext = createContext(null);
@@ -38,8 +37,6 @@ export default function Posts({
 
   // Get quantity of posts
   let n = posts.length;
-
-  const router = useRouter();
 
   // Filter posts by sender_name
   function getSenderPosts(sender_name: string) {
@@ -291,7 +288,6 @@ export default function Posts({
                           />
                           <button
                             onClick={() => {
-                              router.push(`/posts/${post.id}`);
                               getPostById(
                                 post.id,
                                 post.sender_name,
