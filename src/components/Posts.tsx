@@ -14,9 +14,6 @@ import {
 } from "@/utils/utils";
 import ErrorMessage from "@/components/ErrorMessage";
 
-// Creates context to share posts data between pages
-// const PostsContext = createContext(null);
-
 export default function Posts({
   data,
   createPost,
@@ -58,6 +55,7 @@ export default function Posts({
     }
   }
 
+  // Get a single post by id
   function getPostById(id: string, sender_name: string, message: string) {
     setCurrentPostId(id);
     setSenderName(sender_name);
@@ -125,22 +123,6 @@ export default function Posts({
 
   return (
     <>
-      {isSenderPage === false && (
-        <header>
-          <h1 className="header">
-            Annynotes
-            <Image
-              src={"/icons/sparkles.svg"}
-              width={40}
-              height={40}
-              alt="sparkles"
-            />
-          </h1>
-          <p className="description">
-            Share a legend or leave a note for a loved one
-          </p>
-        </header>
-      )}
       {data.length === 0 ? (
         <ErrorMessage />
       ) : (
@@ -229,8 +211,6 @@ export default function Posts({
                     >
                       <span
                         style={{
-                          // position: "absolute",
-                          // left: "-1.5em",
                           verticalAlign: "middle",
                         }}
                       >
@@ -295,7 +275,6 @@ export default function Posts({
                               );
                             }}
                           >
-                            {/* {isSenderPage ===} */}
                             {isPostPage && isSenderPage === false ? "Note" : ""}
                             {isPostPage === false &&
                               isSenderPage === false &&

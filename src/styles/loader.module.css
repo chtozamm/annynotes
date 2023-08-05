@@ -48,14 +48,3 @@
     opacity: 0;
   }
 }
-
-/* @media (prefers-color-scheme: dark) {
-  .container,
-  .containerAnimation {
-    background-color: var(--background-color);
-  }
-  .header,
-  .headerAnimation {
-    color: var(--main-color);
-  }
-} */

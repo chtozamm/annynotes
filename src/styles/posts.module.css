@@ -4,7 +4,6 @@
   width: 90vw;
   max-width: 640px;
   flex-wrap: wrap;
-  /* gap: 3.5em; */
 }
 
 .scrollIcon {
@@ -18,7 +17,6 @@
   border-bottom: 1px var(--main-color) solid;
   border-radius: 16px;
   padding: 1em 2em 1.5em 2em;
-  /* transition: all ease-in-out 0.3s; */
   width: 100%;
   position: relative;
   background-color: #fffaf2;
@@ -87,7 +85,7 @@
   background-color: var(--main-color);
   color: #fff;
   width: 100%;
-  max-width: 20em;
+  max-width: 90vw;
   border-radius: 16px;
   height: 30px;
   padding-top: 1.5em;
@@ -126,7 +124,7 @@
   flex-direction: column;
   align-items: center;
   gap: 1em;
-  margin: 0 auto 3em auto;
+  margin: 0 auto;
   width: 90vw;
   max-width: 640px;
 }
@@ -142,6 +140,10 @@
   padding-bottom: 1em;
 }
 
+.formEditContainer .form > button {
+  margin-top: 2em;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -149,38 +151,6 @@
   max-width: 640px;
   width: 100%;
   padding-top: 1em;
-}
-
-.input,
-.textArea {
-  border: none;
-  border-top: 2px var(--main-color) solid;
-  background-color: #fffaf2;
-}
-
-.input {
-  border-radius: 16px;
-  font-family: var(--fonts);
-  font-size: 1em;
-  outline: none;
-  padding: 1em;
-  margin-top: 1em;
-}
-
-.textArea {
-  border-radius: 16px;
-  font-family: var(--fonts);
-  font-size: 1em;
-  outline: none;
-  padding: 1em;
-  resize: none;
-  min-height: 162px;
-  margin-bottom: 1em;
-}
-
-.input:focus,
-.textArea:focus {
-  background-color: #fff9eb;
 }
 
 .actionsContainer {
@@ -200,12 +170,3 @@
 .reverseButton {
   margin-top: 1em;
 }
-/* @media (prefers-color-scheme: dark) {
-  .senderName {
-    color: #ccc;
-  }
-  .card {
-    background-color: var(--background-color);
-    color: var(--font-color);
-  }
-} */

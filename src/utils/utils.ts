@@ -15,11 +15,6 @@ export function clearTextAreaValue() {
   const textarea = document.querySelector("textarea") as HTMLTextAreaElement;
   if (textarea) textarea.value = "";
 }
-export function clearInputValue() {
-  const input = document.querySelector("input") as HTMLInputElement;
-  if (input) input.value = "";
-}
-
 export function updateInputValue(value: string) {
   const input = document.querySelector("#inputName") as HTMLInputElement;
   if (input) input.value = value;
