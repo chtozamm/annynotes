@@ -7,7 +7,6 @@ export default function Loader() {
   const [animation, setAnimation] = useState(false);
   useEffect(() => {
     setAnimation(true);
-    window.scrollTo(0, 0);
     setTimeout(() => {
       const body = document.querySelector("body") as HTMLBodyElement;
       if (body) body.style.overflow = "visible";
