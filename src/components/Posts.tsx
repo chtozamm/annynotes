@@ -211,7 +211,7 @@ export default function Posts({
                     >
                       <span
                         style={{
-                          verticalAlign: "middle",
+                          fontSize: "1.3em",
                         }}
                       >
                         ←
@@ -250,6 +250,18 @@ export default function Posts({
                   </button>
                 )}
               </>
+            )}
+            {isPostPage && isEditing === false && (
+              <button
+                className={styles.returnButton}
+                onClick={() => {
+                  returnToAllPosts();
+                  window.scrollTo(0, 0);
+                }}
+              >
+                <span style={{ position: "absolute", left: "-1.5em" }}>←</span>
+                back to all notes
+              </button>
             )}
             <ul className={isEditing ? styles.invisible : styles.list}>
               {posts.map((post: Post) => {
@@ -391,7 +403,7 @@ export default function Posts({
                 </div>
               </>
             )}
-            {showAll && isEditing === false && (
+            {showAll && isPostPage === false && isEditing === false && (
               <button
                 className={styles.returnButton}
                 onClick={() => {
