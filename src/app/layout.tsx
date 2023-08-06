@@ -16,11 +16,26 @@ export const metadata: Metadata = {
 		card: "summary_large_image",
 	},
 	manifest: "/manifest.json",
+	themeColor: "#ffffff",
 }
 
 export default function RootLayout(props: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
+			<head>
+				<meta
+					name="theme-color"
+					content="#ffffff"
+				/>
+				<link
+					rel="manifest"
+					href="/manifest.json"
+				/>
+				<link
+					rel="apple-touch-icon"
+					href="/icon-192x192.png"
+				/>
+			</head>
 			<body>
 				<main>
 					<Loader />

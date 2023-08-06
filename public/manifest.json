@@ -1,6 +1,9 @@
 {
 	"name": "Annynotes",
 	"short_name": "Annynotes",
+	"scope": "/",
+	"start_url": "/",
+	"description": "Share a legend or leave a note for a loved one.",
 	"icons": [
 		{
 			"src": "/android-chrome-192x192.png",
