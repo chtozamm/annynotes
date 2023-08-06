@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 		description: "Share a legend or leave a note for a loved one.",
 		card: "summary_large_image",
 	},
+	manifest: "/manifest.json",
 }
 
 export default function RootLayout(props: { children: React.ReactNode }) {
