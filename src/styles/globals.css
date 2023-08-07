@@ -56,7 +56,6 @@ input,
 textArea {
   border: none;
   border-top: 2px var(--main-color) solid;
-  border-bottom: 2px var(--main-color) solid;
   background-color: #fffaf2;
   overflow-y: hidden;
 }
