@@ -41,15 +41,15 @@ header img {
 }
 
 main {
-  padding-top: 3em;
-  padding-bottom: 1em;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
   margin: 0 auto;
   width: 90vw;
   max-width: 640px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 3em;
+  gap: 1.5em;
 }
 
 input,
@@ -135,6 +135,7 @@ a {
   font-size: 1em;
   color: var(--grey);
   margin: 0 auto;
+  padding: 0 1em;
 }
 
 .react-confirm-alert-body {

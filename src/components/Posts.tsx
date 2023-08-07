@@ -13,7 +13,6 @@ import {
   updateInputValue,
 } from "@/utils/utils"
 import ErrorMessage from "@/components/ErrorMessage"
-import Header from "./Header"
 
 export default function Posts({
   data,
@@ -30,8 +29,6 @@ export default function Posts({
   const [senderName, setSenderName] = useState("")
   const [isCreatingPost, setCreatingPost] = useState(false)
   const [currentPostId, setCurrentPostId] = useState("")
-  const [isAllPostsReversed, setAllPostsReversed] = useState(false)
-  const [isSenderPostsReversed, setSenderPostsReversed] = useState(false)
 
   // Get quantity of posts
   let n = posts.length
@@ -69,8 +66,6 @@ export default function Posts({
 
   // Show all posts again
   async function returnToAllPosts() {
-    setAllPostsReversed(false)
-    setSenderPostsReversed(false)
     setSenderName("")
     updateInputValue(senderName)
     setMessage("")
@@ -124,7 +119,25 @@ export default function Posts({
 
   return (
     <>
-      {isPostPage === false && isSenderPage === false && <Header />}
+      <header>
+        <h1
+          onClick={() => returnToAllPosts()}
+          style={{ cursor: "pointer" }}
+        >
+          Annynotes
+          <Image
+            src={"/icons/sparkles.svg"}
+            width={40}
+            height={40}
+            alt="sparkles"
+          />
+        </h1>
+        {isPostPage === false && isSenderPage === false && (
+          <p className="description">
+            Share a legend or leave a note for a loved one
+          </p>
+        )}
+      </header>{" "}
       {data.length === 0 ? (
         <ErrorMessage />
       ) : (
@@ -192,81 +205,10 @@ export default function Posts({
               )}
             </div>
           )}
-          <section>
-            {isPostPage === false && isSenderPage && (
-              <h2>Notes from {senderName}:</h2>
-            )}
+          <section className={styles.section}>
+            {(isPostPage || isSenderPage) && <h2>from {senderName}:</h2>}
             {isPostPage === false && isSenderPage === false && (
               <h2>Recent notes:</h2>
-            )}
-            {isPostPage === false && (
-              <>
-                {isSenderPage && (
-                  <>
-                    <button
-                      className={styles.returnButton}
-                      onClick={() => {
-                        returnToAllPosts()
-                        window.scrollTo(0, 0)
-                      }}
-                      style={{
-                        transform: "translate(-0.5em, -0.3em)",
-                        margin: 0,
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontSize: "1.3em",
-                        }}
-                      >
-                        ←
-                      </span>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setSenderPostsReversed(!isSenderPostsReversed)
-                        setPosts(posts.toReversed())
-                      }}
-                      className={styles.reverseButton}
-                    >
-                      <Image
-                        src={"/icons/reverse-icon.svg"}
-                        width={24}
-                        height={24}
-                        alt="reverse order"
-                      />
-                    </button>
-                  </>
-                )}
-                {isSenderPage === false && (
-                  <button
-                    onClick={() => {
-                      setAllPostsReversed(!isAllPostsReversed)
-                      setPosts(posts.toReversed())
-                    }}
-                    className={styles.reverseButton}
-                  >
-                    <Image
-                      src={"/icons/reverse-icon.svg"}
-                      width={24}
-                      height={24}
-                      alt="reverse order"
-                    />
-                  </button>
-                )}
-              </>
-            )}
-            {isPostPage && isEditing === false && (
-              <button
-                className={styles.returnButton}
-                onClick={() => {
-                  returnToAllPosts()
-                  window.scrollTo(0, 0)
-                }}
-              >
-                <span style={{ position: "absolute", left: "-1.5em" }}>←</span>
-                back to all notes
-              </button>
             )}
             <ul className={isEditing ? styles.invisible : styles.list}>
               {posts.map((post: Post) => {
@@ -295,21 +237,8 @@ export default function Posts({
                               )
                             }}
                           >
-                            {isPostPage && isSenderPage === false ? "Note" : ""}
-                            {isPostPage === false &&
-                              isSenderPage === false &&
-                              isAllPostsReversed &&
-                              `Note #${n++ - posts.length + 1}`}
-                            {isPostPage === false &&
-                              isSenderPage === false &&
-                              isAllPostsReversed === false &&
-                              `Note #${n--}`}
-                            {isSenderPage &&
-                              isSenderPostsReversed &&
-                              `Note #${n++ - posts.length + 1}`}
-                            {isSenderPage &&
-                              isSenderPostsReversed === false &&
-                              `Note #${n--}`}
+                            {isPostPage ? "Note" : ""}
+                            {isPostPage === false && `Note #${n--}`}
                           </button>
                           <br />
                           <button
@@ -360,7 +289,11 @@ export default function Posts({
             )}
             {isPostPage && (
               <>
-                <div className={styles.formEditContainer}>
+                <div
+                  className={
+                    isEditing ? styles.formEditContainer : styles.hidden
+                  }
+                >
                   {isEditing && (
                     <form
                       onSubmit={(e) => {
@@ -414,7 +347,7 @@ export default function Posts({
                 </div>
               </>
             )}
-            {showAll && isPostPage === false && isEditing === false && (
+            {showAll && (
               <button
                 className={styles.returnButton}
                 onClick={() => {

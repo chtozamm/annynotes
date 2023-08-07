@@ -1,33 +1,32 @@
 .list {
-  margin: 2em auto 2em auto;
+  margin: 0 auto;
   display: flex;
   width: 90vw;
   max-width: 640px;
   flex-wrap: wrap;
+  gap: 1.5em;
 }
 
 .scrollIcon {
   position: absolute;
-  top: -1.65em;
+  top: -2em;
   left: calc(50% - 12px);
 }
 
 .card {
-  border-top: 1px var(--main-color) solid;
+  /* border-top: 1px var(--main-color) solid;
   border-bottom: 1px var(--main-color) solid;
   border-radius: 16px;
   padding: 1em 2em 1.5em 2em;
   width: 100%;
   position: relative;
-  background-color: #fffaf2;
-}
-
-.card:first-of-type {
+  background-color: #fffaf2; */
+  border-radius: 16px;
+  padding: 1.5em;
+  width: 100%;
+  position: relative;
+  background-color: #fffbf7;
   border-top: 2px var(--main-color) solid;
-}
-
-.card:last-of-type {
-  border-bottom: 2px var(--main-color) solid;
 }
 
 .heading {
@@ -49,6 +48,14 @@
   font-weight: 400;
   color: var(--grey);
   margin-top: 1.5em;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5em;
 }
 
 .profilePicture {
@@ -150,13 +157,11 @@
   gap: 1em;
   max-width: 640px;
   width: 100%;
-  padding-top: 1em;
 }
 
 .actionsContainer {
   display: grid;
   gap: 1em;
-  margin-top: 3em;
   width: 90vw;
   max-width: 640px;
   margin-left: auto;

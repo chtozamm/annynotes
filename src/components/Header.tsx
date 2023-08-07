@@ -1,10 +1,8 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import { usePathname } from "next/navigation";
+import Image from "next/image"
 
 export default function Header() {
-  const pathname = usePathname();
   return (
     <>
       <header>
@@ -17,12 +15,10 @@ export default function Header() {
             alt="sparkles"
           />
         </h1>
-        {pathname === "/" && (
-          <p className="description">
+        {/* <p className="description">
             Share a legend or leave a note for a loved one
-          </p>
-        )}
+          </p> */}
       </header>
     </>
-  );
+  )
 }
