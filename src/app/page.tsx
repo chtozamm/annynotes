@@ -1,22 +1,14 @@
 import Posts from "@/components/Posts"
-import {
-  createPost,
-  deletePost,
-  getPosts,
-  updatePost,
-} from "@/utils/pocketbase"
+import { createPost, deletePost, updatePost } from "@/utils/pocketbase"
 
 export default async function Home() {
-  let posts = await getPosts().catch((err) => {
-    console.log(err)
-    return []
-  })
-
   return (
     <>
+      <p className="description">
+        Share a legend or leave a note for a loved one
+      </p>
+
       <Posts
-        data={posts}
-        getPosts={getPosts}
         createPost={createPost}
         deletePost={deletePost}
         updatePost={updatePost}

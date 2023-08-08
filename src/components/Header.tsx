@@ -1,12 +1,17 @@
 "use client"
 
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 
 export default function Header() {
+  const router = useRouter()
   return (
     <>
       <header>
-        <h1>
+        <h1
+          onClick={() => router.push("/")}
+          style={{ cursor: "pointer" }}
+        >
           Annynotes
           <Image
             src={"/icons/sparkles.svg"}
@@ -15,9 +20,6 @@ export default function Header() {
             alt="sparkles"
           />
         </h1>
-        {/* <p className="description">
-            Share a legend or leave a note for a loved one
-          </p> */}
       </header>
     </>
   )
