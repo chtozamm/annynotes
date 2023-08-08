@@ -1,21 +1,21 @@
-"use client";
+"use client"
 
-import styles from "@/styles/loader.module.css";
-import { useEffect, useState } from "react";
+import styles from "@/styles/loader.module.css"
+import { useEffect, useState } from "react"
 
 export default function Loader() {
-  const [animation, setAnimation] = useState(false);
+  const [animation, setAnimation] = useState(false)
   useEffect(() => {
-    setAnimation(true);
+    setAnimation(true)
     setTimeout(() => {
-      const body = document.querySelector("body") as HTMLBodyElement;
-      if (body) body.style.overflow = "visible";
+      // const body = document.querySelector("body") as HTMLBodyElement;
+      // if (body) body.style.overflow = "visible";
       const loaderContainer = document.querySelector(
         "#loaderContainer"
-      ) as HTMLDivElement;
-      if (loaderContainer) loaderContainer.remove();
-    }, 1500);
-  });
+      ) as HTMLDivElement
+      if (loaderContainer) loaderContainer.remove()
+    }, 1500)
+  })
   return (
     <div
       id="loaderContainer"
@@ -25,5 +25,5 @@ export default function Loader() {
         Annynotes
       </h1>
     </div>
-  );
+  )
 }

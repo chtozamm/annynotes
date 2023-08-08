@@ -2,53 +2,42 @@
 
 import { Post } from "@/utils/types"
 import useSWR from "swr"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import styles from "@/styles/posts.module.css"
 import Image from "next/image"
 import { clearTextAreaValue, generateUniqueId } from "@/utils/utils"
 import Characters from "./Characters"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
-
-export default function Posts({ createPost, deletePost, updatePost }: any) {
+export default function Posts({ createPost }: any) {
+  const router = useRouter()
   const [message, setMessage] = useState("")
   const [senderName, setSenderName] = useState("")
   const [isCreatingPost, setCreatingPost] = useState(false)
+  const searchParams = useSearchParams()
+  const filter = searchParams.get("filter") || ""
 
-  const { data, error } = useSWR("/api/posts", fetcher)
+  const fetcher = (url: string) =>
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => data.items)
+  const { data, isLoading, error } = useSWR(
+    "https://annynotes.pockethost.io/api/collections/posts/records?perPage=500&sort=-created",
+    fetcher,
+    { refreshInterval: 1000 }
+  )
 
   if (error) return <div>Failed to load</div>
-  if (!data)
-    return (
-      <>
-        <div>Loading notes...</div>
-      </>
-    )
+  if (isLoading) return <div>Loading notes...</div>
 
-  const posts = data
+  const posts = data.filter((post: Post) => post.id !== filter)
   // Get quantity of posts
   let n = posts.length
-
-  const router = useRouter()
-
-  // // Expand textarea by demand
-  // useEffect(() => {
-  //   const tx = document.getElementsByTagName("textarea")
-  //   for (let i = 0; i < tx.length; i++) {
-  //     tx[i].addEventListener("input", OnInput, false)
-  //     tx[i].style.height = tx[i].scrollHeight + "px"
-  //   }
-  //   function OnInput(this: HTMLElement) {
-  //     this.style.height = "0"
-  //     this.style.height = this.scrollHeight + "px"
-  //   }
-  // })
 
   return (
     <>
       <div className={styles.formCreateContainer}>
-        {isCreatingPost === true ? (
+        {isCreatingPost ? (
           <form
             onSubmit={async (e) => {
               e.preventDefault()
