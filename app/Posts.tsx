@@ -29,7 +29,7 @@ const characters = [
 ];
 
 type Post = {
-  sender_name: string;
+  author: string;
   message: string;
   id: string;
 };
@@ -99,16 +99,23 @@ export default function Posts() {
   }
   let posts = data.items;
   posts = posts.filter((post: Post) =>
-    searchParams.get("by")
-      ? post.sender_name === searchParams.get("by")?.replaceAll("_", " ")
+    searchParams.get("from")
+      ? post.author.toLowerCase() ===
+        searchParams.get("from")?.replaceAll("_", " ").toLowerCase()
       : true
   );
   return (
     <>
       <h2 className="lowercase font-['Ringbearer'] text-[#ffb220] font-bold text-2xl text-center py-8">
-        {searchParams.get("by")
-          ? `From ${searchParams.get("by")?.replaceAll("_", " ")}:`
-          : "Recent notes:"}
+        {searchParams.get("from") && posts.length > 0
+          ? `From ${searchParams.get("from")?.replaceAll("_", " ")}:`
+          : searchParams.get("from") &&
+            `${
+              searchParams.get("from")?.replaceAll("_", " ")
+            } hasn't posted anything yet`}
+        {!searchParams.get("from") && posts.length > 0
+          ? "Recent notes:"
+          : !searchParams.get("from") && "Nothing has been posted yet"}
       </h2>
       <ul className="w-full">
         {posts.map((post: Post, idx: number) => (
@@ -132,18 +139,18 @@ export default function Posts() {
                 router.push(
                   pathname + "?" +
                     createQueryString(
-                      "by",
-                      post.sender_name.replaceAll(" ", "_"),
+                      "from",
+                      post.author.replaceAll(" ", "_").toLowerCase(),
                     ),
                 )}
             >
-              from {post.sender_name}
-              {(characters.includes(post.sender_name))
+              from {post.author}
+              {(characters.includes(post.author))
                 ? (
                   <Image
                     className="absolute top-0 right-[-1.75em]"
                     src={`/characters/${
-                      post.sender_name.toLowerCase().replaceAll(" ", "-")
+                      post.author.toLowerCase().replaceAll(" ", "-")
                         .replaceAll(
                           "'",
                           "",
