@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
 import useSWR from "swr";
 
 const characters = [
@@ -28,140 +27,92 @@ const characters = [
   "Town's Guard",
 ];
 
-type Post = {
-  author: string;
-  message: string;
-  id: string;
-};
-
 export default function Posts() {
+  // NextJS hooks
   const searchParams = useSearchParams();
-  const router = useRouter();
   const pathname = usePathname();
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams || "");
-      params.set(name, value);
-      return params.toString();
-    },
-    [searchParams],
-  );
+  const router = useRouter();
+  // Call SWR to get records from database
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data, error, isLoading } = useSWR(
-    "https://annynotes.pockethost.io/api/collections/posts/records?sort=-created&perPage=200",
+  const { data, error, isLoading, mutate } = useSWR(
+    `${process.env.NEXT_PUBLIC_DB_URL}?sort=-created&perPage=1000`,
     fetcher,
+    {
+      keepPreviousData: true,
+    },
   );
-  if (error) {
-    return (
-      <h2 className="lowercase font-['Ringbearer'] text-[#ffb220] font-bold text-2xl text-center py-8">
-        Couldn&apos;t find any notes these time: refresh the page or try again
-        later ✨
-      </h2>
+  // Handle SWR states
+  if (isLoading) return <Fallback />;
+  if (error) return <Error />;
+  // Filter posts based on url search params
+  const posts: Post[] = data?.items
+    ?.filter((post: Post) =>
+      searchParams?.get("from")
+        ? post.author.toLowerCase() ===
+          searchParams.get("from")?.replaceAll("_", " ").toLowerCase()
+        : true,
+    )
+    .filter((post: Post) =>
+      searchParams?.get("id") ? post.id === searchParams.get("id") : true,
     );
-  }
-  if (isLoading) {
-    return (
-      <>
-        <h2 className="lowercase font-['Ringbearer'] text-[#ffb220] font-bold text-2xl text-center py-8">
-          Looking for notes...
-        </h2>
-        <ul className="w-full">
-          <li className="h-48 pb-8 pt-4 px-4 md:px-8 text-center mb-8 border-t-2 break-words whitespace-pre-wrap rounded-2xl relative border-[#ffb220] bg-[#fffbf7] leading-6">
-            <Image
-              className="absolute top-[-0.9em] left-[calc(50%-12px)]"
-              src="/icons/scroll.svg"
-              width={26}
-              height={26}
-              alt="scroll icon"
-            />
-          </li>
-          <li className="h-48 pb-8 pt-4 px-4 md:px-8 text-center mb-8 border-t-2 break-words whitespace-pre-wrap rounded-2xl relative border-[#ffb220] bg-[#fffbf7] leading-6">
-            <Image
-              className="absolute top-[-0.9em] left-[calc(50%-12px)]"
-              src="/icons/scroll.svg"
-              width={26}
-              height={26}
-              alt="scroll icon"
-            />
-          </li>
-          <li className="h-48 pb-8 pt-4 px-4 md:px-8 text-center mb-8 border-t-2 break-words whitespace-pre-wrap rounded-2xl relative border-[#ffb220] bg-[#fffbf7] leading-6">
-            <Image
-              className="absolute top-[-0.9em] left-[calc(50%-12px)]"
-              src="/icons/scroll.svg"
-              width={26}
-              height={26}
-              alt="scroll icon"
-            />
-          </li>
-        </ul>
-      </>
-    );
-  }
-  let posts = data.items;
-  posts = posts.filter((post: Post) =>
-    searchParams?.get("from")
-      ? post.author.toLowerCase() ===
-        searchParams.get("from")?.replaceAll("_", " ").toLowerCase()
-      : true
-  );
   return (
     <>
-      <h2 className="lowercase font-['Ringbearer'] text-[#ffb220] font-bold text-2xl text-center py-8">
-        {searchParams?.get("from") && posts.length > 0
-          ? `From ${searchParams.get("from")?.replaceAll("_", " ")}:`
-          : searchParams?.get("from") &&
-            `${
-              searchParams.get("from")?.replaceAll("_", " ")
-            } hasn't posted anything yet`}
-        {!searchParams?.get("from") && posts.length > 0
-          ? "Recent notes:"
-          : !searchParams?.get("from") && "Nothing has been posted yet"}
+      <h2 className="py-8 text-center font-['Ringbearer'] text-2xl font-bold lowercase text-[#ffb220]">
+        {!searchParams.get("id") &&
+          (searchParams?.get("from") && posts?.length > 0
+            ? `From ${searchParams.get("from")?.replaceAll("_", " ")}:`
+            : searchParams?.get("from") &&
+              `${searchParams
+                .get("from")
+                ?.replaceAll("_", " ")} hasn't posted anything yet`)}
+        {!searchParams.get("id") &&
+          (!searchParams?.get("from") && posts?.length > 0
+            ? "Recent notes:"
+            : !searchParams?.get("from") && "Nothing has been posted yet")}
+        {searchParams.get("id") && "Chosen note:"}
       </h2>
       <ul className="w-full">
-        {posts.map((post: Post, idx: number) => (
+        {posts?.map((post, idx: number) => (
           <li
             key={post.id}
-            className="pb-8 pt-4 px-4 md:px-8 text-center mb-8 border-t-2 break-words whitespace-pre-wrap rounded-2xl relative border-[#ffb220] bg-[#fffbf7] leading-6"
+            className="relative mb-8 whitespace-pre-wrap break-words rounded-2xl border-t-2 border-[#ffb220] bg-[#fffbf7] px-4 pb-8 pt-4 text-center leading-6 md:px-8"
           >
             <Image
-              className="absolute top-[-0.9em] left-[calc(50%-12px)]"
+              className="absolute left-[calc(50%-12px)] top-[-0.9em]"
               src="/icons/scroll.svg"
               width={26}
               height={26}
               alt="scroll icon"
             />
-            <p className="font-['Ringbearer'] text-lg text-[#ffb220] font-bold">
-              Note #{posts.length - idx}
+            <p
+              className="mx-auto w-fit cursor-pointer font-['Ringbearer'] text-lg font-bold text-[#ffb220]"
+              onClick={() => router.push(`${pathname}?id=${post.id}`)}
+            >
+              {searchParams.get("id") ? "Note" : `Note #${posts.length - idx}`}
             </p>
             <span
-              className="relative italic text-zinc-400 cursor-pointer"
+              className="relative cursor-pointer italic text-zinc-400"
               onClick={() =>
                 router.push(
-                  pathname + "?" +
-                    createQueryString(
-                      "from",
-                      post.author.replaceAll(" ", "_").toLowerCase(),
-                    ),
-                )}
+                  `${pathname}?from=${post.author
+                    .replaceAll(" ", "_")
+                    .toLowerCase()}`,
+                )
+              }
             >
               from {post.author}
-              {(characters.includes(post.author))
-                ? (
-                  <Image
-                    className="absolute top-0 right-[-1.75em]"
-                    src={`/characters/${
-                      post.author.toLowerCase().replaceAll(" ", "-")
-                        .replaceAll(
-                          "'",
-                          "",
-                        )
-                    }.png`}
-                    width={20}
-                    height={20}
-                    alt=""
-                  />
-                )
-                : null}
+              {characters.includes(post.author) ? (
+                <Image
+                  className="absolute right-[-1.75em] top-0"
+                  src={`/characters/${post.author
+                    .toLowerCase()
+                    .replaceAll(" ", "-")
+                    .replaceAll("'", "")}.png`}
+                  width={20}
+                  height={20}
+                  alt=""
+                />
+              ) : null}
             </span>
             <p className="pt-4">{post.message}</p>
           </li>
@@ -170,3 +121,37 @@ export default function Posts() {
     </>
   );
 }
+
+const Fallback = () => (
+  <>
+    {/* <button className="cursor-default uppercase py-4 max-w-sm w-full mx-auto rounded-xl font-black text-[0.75em] outline-none focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4 bg-[#ffb220] text-white">
+      Share
+    </button> */}
+    <h2 className="py-8 text-center font-['Ringbearer'] text-2xl font-bold lowercase text-[#ffb220]">
+      Looking for notes...
+    </h2>
+    <ul className="w-full">
+      {[0, 1, 2].map((_, i) => (
+        <li
+          key={i}
+          className="relative mb-8 h-48 whitespace-pre-wrap break-words rounded-2xl border-t-2 border-[#ffb220] bg-[#fffbf7] px-4 pb-8 pt-4 text-center leading-6 md:px-8"
+        >
+          <Image
+            className="absolute left-[calc(50%-12px)] top-[-0.9em]"
+            src="/icons/scroll.svg"
+            width={26}
+            height={26}
+            alt="scroll icon"
+          />
+        </li>
+      ))}
+    </ul>
+  </>
+);
+
+const Error = () => (
+  <h2 className="py-8 text-center font-['Ringbearer'] text-2xl font-bold lowercase text-[#ffb220]">
+    Couldn&apos;t find any notes these time: refresh the page or try again later
+    ✨
+  </h2>
+);
