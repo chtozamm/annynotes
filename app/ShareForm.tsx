@@ -1,16 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPost } from "./actions";
 import { generateUniqueId } from "./utils";
 
 export default function ShareForm() {
   const [isOpen, toggleOpen] = useState(false);
-  const passkey = localStorage.getItem("annynotes_passkey") || "";
+  const passkey = useRef("");
+  useEffect(() => {
+    passkey.current = localStorage.getItem("annynotes_passkey") || "";
+  }, []);
   const handleForm = async (data: FormData) => {
     if (
       data.get("passkey") === process.env.NEXT_PUBLIC_PASSKEY ||
-      passkey === process.env.NEXT_PUBLIC_PASSKEY
+      passkey.current === process.env.NEXT_PUBLIC_PASSKEY
     ) {
       if (
         localStorage.getItem("annynotes_passkey") !==
@@ -67,8 +70,8 @@ export default function ShareForm() {
             name="passkey"
             className="w-full max-w-sm rounded-xl border-t-2 border-[#ffb220] px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 focus-within:bg-[#fffbf7] focus-within:shadow-md focus-within:shadow-[#fffbf7] disabled:pointer-events-none disabled:text-zinc-400 sm:px-3 sm:py-3"
             placeholder="Passkey*"
-            defaultValue={passkey}
-            disabled={process.env.NEXT_PUBLIC_PASSKEY === passkey}
+            defaultValue={passkey.current}
+            disabled={process.env.NEXT_PUBLIC_PASSKEY === passkey.current}
             autoComplete="off"
             required
           />
