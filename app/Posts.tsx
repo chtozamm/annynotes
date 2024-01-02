@@ -40,7 +40,7 @@ export default function Posts() {
   const pathname = usePathname();
   const createQueryString = useCallback(
     (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
+      const params = new URLSearchParams(searchParams || "");
       params.set(name, value);
       return params.toString();
     },
@@ -99,7 +99,7 @@ export default function Posts() {
   }
   let posts = data.items;
   posts = posts.filter((post: Post) =>
-    searchParams.get("from")
+    searchParams?.get("from")
       ? post.author.toLowerCase() ===
         searchParams.get("from")?.replaceAll("_", " ").toLowerCase()
       : true
@@ -107,15 +107,15 @@ export default function Posts() {
   return (
     <>
       <h2 className="lowercase font-['Ringbearer'] text-[#ffb220] font-bold text-2xl text-center py-8">
-        {searchParams.get("from") && posts.length > 0
+        {searchParams?.get("from") && posts.length > 0
           ? `From ${searchParams.get("from")?.replaceAll("_", " ")}:`
-          : searchParams.get("from") &&
+          : searchParams?.get("from") &&
             `${
               searchParams.get("from")?.replaceAll("_", " ")
             } hasn't posted anything yet`}
-        {!searchParams.get("from") && posts.length > 0
+        {!searchParams?.get("from") && posts.length > 0
           ? "Recent notes:"
-          : !searchParams.get("from") && "Nothing has been posted yet"}
+          : !searchParams?.get("from") && "Nothing has been posted yet"}
       </h2>
       <ul className="w-full">
         {posts.map((post: Post, idx: number) => (
