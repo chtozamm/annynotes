@@ -53,13 +53,13 @@ export default function ShareForm() {
           <input
             type="text"
             name="author"
-            className="w-full max-w-sm rounded-xl border-t-2 border-[#ffb220] px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 focus-within:bg-[#fffbf7] focus-within:shadow-md focus-within:shadow-[#fffbf7] sm:px-3 sm:py-3"
+            className="w-full max-w-sm rounded-xl border-t-2 border-[#ffb220] px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 focus:bg-[#fffbf7] focus:shadow-md focus:shadow-[#fffbf7] sm:px-3 sm:py-3"
             placeholder="Name"
             autoComplete="off"
           />
           <textarea
             name="message"
-            className="w-full max-w-sm resize-none overflow-hidden rounded-xl border-t-2 border-[#ffb220] px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 focus-within:bg-[#fffbf7] focus-within:shadow-md focus-within:shadow-[#fffbf7] sm:px-3 sm:py-3"
+            className="w-full max-w-sm resize-none overflow-hidden rounded-xl border-t-2 border-[#ffb220] px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 focus:bg-[#fffbf7] focus:shadow-md focus:shadow-[#fffbf7] sm:px-3 sm:py-3"
             placeholder="Message"
             autoComplete="off"
             rows={3}
@@ -68,7 +68,7 @@ export default function ShareForm() {
           <input
             type="password"
             name="passkey"
-            className="w-full max-w-sm rounded-xl border-t-2 border-[#ffb220] px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 focus-within:bg-[#fffbf7] focus-within:shadow-md focus-within:shadow-[#fffbf7] disabled:pointer-events-none disabled:text-zinc-400 sm:px-3 sm:py-3"
+            className="w-full max-w-sm rounded-xl border-t-2 border-[#ffb220] px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 focus:bg-[#fffbf7] focus:shadow-md focus:shadow-[#fffbf7] disabled:pointer-events-none disabled:text-zinc-400 sm:px-3 sm:py-3"
             placeholder="Passkey*"
             defaultValue={passkey.current}
             disabled={process.env.NEXT_PUBLIC_PASSKEY === passkey.current}
@@ -83,7 +83,7 @@ export default function ShareForm() {
             <span className="text-3xl">🦉</span>
           </div>
           <button
-            className="mx-auto mb-4 w-full max-w-sm rounded-xl bg-[#ffb220] py-4 text-[0.75em] font-black uppercase text-white outline-none focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4"
+            className="mx-auto mb-4 w-full max-w-sm rounded-xl bg-[#ffb220] py-4 text-[0.75em] font-black uppercase text-white outline-none focus:ring-2 focus:ring-[#ffb220] focus:ring-offset-4"
             type="submit"
           >
             Post
@@ -91,7 +91,7 @@ export default function ShareForm() {
         </form>
       )}
       <button
-        className={`mx-auto w-full max-w-sm rounded-xl py-4 text-[0.75em] font-black uppercase outline-none focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4
+        className={`mx-auto w-full max-w-sm rounded-xl py-4 text-[0.75em] font-black uppercase outline-none focus:ring-2 focus:ring-[#ffb220] focus:ring-offset-4
       ${
         isOpen
           ? "border-2 border-[#ffb220] bg-white text-[#ffb220]"
