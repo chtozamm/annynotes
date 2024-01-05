@@ -1,7 +1,7 @@
 import Posts from "./Posts";
 import ShareForm from "./ShareForm";
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <ShareForm />
