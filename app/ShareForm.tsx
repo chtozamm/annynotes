@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { createPost } from "./actions";
 import { generateUniqueId } from "./utils";
 import { useSWRConfig } from "swr";
@@ -12,28 +12,19 @@ export default function ShareForm() {
   const name = useRef("");
 
   useEffect(() => {
-    passkey.current = localStorage.getItem("annynotes_passkey") || "";
-    name.current = localStorage.getItem("annynotes_name") || "";
+    passkey.current = localStorage.getItem("annynotes_passkey") as string;
   }, []);
 
   const handleForm = async (data: FormData) => {
-    const inputPasskey = data.get("passkey") as string;
+    const inputName = (data.get("author") as string).trim();
+    const inputMessage = (data.get("message") as string).trim();
+    const inputPasskey = passkey.current || (data.get("passkey") as string);
 
-    if (
-      inputPasskey === process.env.NEXT_PUBLIC_PASSKEY ||
-      passkey.current === process.env.NEXT_PUBLIC_PASSKEY
-    ) {
-      if (passkey.current !== process.env.NEXT_PUBLIC_PASSKEY) {
-        localStorage.setItem(
-          "annynotes_passkey",
-          process.env.NEXT_PUBLIC_PASSKEY,
-        );
-      }
-
+    if (inputPasskey === process.env.NEXT_PUBLIC_PASSKEY) {
       const newPost: Post = {
         id: generateUniqueId(),
-        author: (data.get("author") as string).trim(),
-        message: (data.get("message") as string).trim(),
+        author: inputName,
+        message: inputMessage,
       };
 
       try {
@@ -44,16 +35,20 @@ export default function ShareForm() {
           (prevData) => [newPost, ...(prevData ?? [])],
           false,
         );
+
         toggleOpen(false);
-        localStorage.setItem("annynotes_name", newPost.author);
+        name.current = inputName;
         passkey.current = inputPasskey;
+        if (localStorage.getItem("annynotes_passkey") !== inputPasskey) {
+          localStorage.setItem("annynotes_passkey", inputPasskey);
+        }
       } catch (error) {
         console.log("Error posting a note:", error);
         alert("Couldn't post a note: please, try again");
       }
     } else {
-      console.log("Incorrect passkey");
-      alert("Incorrect passkey");
+      console.log("Authorization failed: incorrect passkey");
+      alert("Authorization failed: incorrect passkey");
     }
   };
 
@@ -88,7 +83,6 @@ export default function ShareForm() {
               className="w-full max-w-sm rounded-xl border-t-2 border-[#ffb220] px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 focus-visible:bg-[#fffbf7] focus-visible:shadow-md focus-visible:shadow-[#fffbf7] sm:px-3 sm:py-3"
               placeholder="Passkey*"
               defaultValue={passkey.current}
-              disabled={passkey.current === process.env.NEXT_PUBLIC_PASSKEY}
               autoComplete="off"
               required
             />
