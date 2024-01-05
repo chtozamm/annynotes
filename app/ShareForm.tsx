@@ -33,7 +33,7 @@ export default function ShareForm() {
       const newPost: Post = {
         id: generateUniqueId(),
         author: (data.get("author") as string).trim(),
-        message: data.get("message") as string,
+        message: (data.get("message") as string).trim(),
       };
 
       try {
@@ -46,6 +46,7 @@ export default function ShareForm() {
         );
         toggleOpen(false);
         localStorage.setItem("annynotes_name", newPost.author);
+        passkey.current = inputPasskey;
       } catch (error) {
         console.log("Error posting a note:", error);
         alert("Couldn't post a note: please, try again");
