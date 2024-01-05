@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-['Segoe UI'] mx-auto flex max-w-2xl flex-col items-center px-4 font-sans selection:bg-[#ffb220] selection:text-white md:px-0">
+      <body className="mx-auto flex max-w-2xl flex-col items-center px-4 font-sans selection:bg-[#ffb220] selection:text-white md:px-0">
         <Header />
         {children}
       </body>
