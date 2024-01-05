@@ -110,7 +110,7 @@ export default function Posts() {
                     />
                   ) : null}
                 </button>
-                <p className="pt-4">{post.message}</p>
+                <p className="w-full pt-4">{post.message}</p>
               </li>
             ))}
           </ul>
