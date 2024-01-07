@@ -10,3 +10,10 @@ export function generateUniqueId(): string {
 
   return uniqueId;
 }
+
+export function validateId(id: string): boolean {
+  if (!/^[a-zA-Z0-9]{15}$/.test(id)) {
+    return false;
+  }
+  return true;
+}
