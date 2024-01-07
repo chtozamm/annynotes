@@ -1,5 +1,8 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
 export async function createPost(post: Post) {
   if (!post.author) {
     post.author = "stranger";
@@ -11,27 +14,28 @@ export async function createPost(post: Post) {
     },
     body: JSON.stringify(post),
   });
-  return res.ok;
+  if (res.ok) {
+    revalidatePath("/");
+    redirect("/");
+  } else {
+    return "fail";
+  }
 }
 
-// export async function deletePost(id: string) {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_DB_URL}/${id}` as string, {
-//     method: "DELETE",
-//   });
-//   return res.ok;
-// }
-
-// export async function updatePost(post: Post) {
-//   if (!post.author) {
-//     post.author = "stranger";
-//   }
-//   const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_DB_URL}/${post.id}` as string,
-//     {
-//       method: "PATCH",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(post),
-//     },
-//   );
-//   return res.ok;
-// }
+export async function deletePost(id: string) {
+  const res = await fetch(process.env.NEXT_PUBLIC_DB_URL + "/" + id, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: id,
+    }),
+  });
+  if (res.ok) {
+    revalidatePath("/");
+    redirect("/");
+  } else {
+    return "fail";
+  }
+}
