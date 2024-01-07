@@ -25,6 +25,7 @@ const characters = [
   "Aragorn",
   "Yoda",
   "Town's Guard",
+  "Luna Lovegood",
 ];
 
 export default function Posts({ data }: { data: Post[] }) {
