@@ -90,7 +90,7 @@ export default function ShareForm() {
           <span className="text-3xl">🦉</span>
         </div>
         <button
-          className="mx-auto mb-4 w-full max-w-sm rounded-xl bg-[#ffb220] py-4 text-[0.75em] font-black uppercase text-white outline-none focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4"
+          className="mx-auto mb-4 w-full max-w-sm rounded-xl bg-[#ffb220] py-4 text-[0.75em] font-black uppercase text-white outline-none hover:bg-amber-500 focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4"
           type="submit"
         >
           Post

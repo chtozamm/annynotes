@@ -70,7 +70,7 @@ export default function Posts({ data }: { data: Post[] }) {
               Note #{posts.length - idx}
             </span>
             <button
-              className="flex select-text items-center gap-1.5 italic text-zinc-400 outline-none focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4"
+              className="flex select-text items-center gap-1.5 italic text-zinc-400 outline-none hover:text-[#7c7c8b] focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4"
               onClick={() =>
                 router.push(
                   `${pathname}?from=${post.author

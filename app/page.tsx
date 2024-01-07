@@ -26,7 +26,7 @@ export default async function Home() {
 const ShareButton = () => (
   <Link
     href={"/posts/new"}
-    className="mx-auto w-full max-w-sm rounded-xl bg-[#ffb220] py-4 text-center text-[0.75em] font-black uppercase text-white outline-none focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4"
+    className="mx-auto w-full max-w-sm rounded-xl bg-[#ffb220] py-4 text-center text-[0.75em] font-black uppercase text-white outline-none hover:bg-amber-500 focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4"
   >
     Share
   </Link>
