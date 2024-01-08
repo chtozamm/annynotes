@@ -2,6 +2,7 @@
 
 import { deletePost } from "@/app/actions";
 import SubmitButton from "@/components/SubmitButton";
+import Link from "next/link";
 
 export default function DeleteForm({ id }: { id: string }) {
   const handleForm = async (data: FormData) => {
@@ -30,11 +31,28 @@ export default function DeleteForm({ id }: { id: string }) {
           type="password"
           name="passkey"
           className="w-full max-w-sm rounded-xl border-t-2 border-[#ffb220] px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 sm:px-3 sm:py-3 lg:focus-visible:bg-[#fffbf7] lg:focus-visible:shadow-md lg:focus-visible:shadow-[#fffbf7]"
-          placeholder="Passkey*"
+          placeholder="Passkey"
           autoComplete="off"
           required
         />
-        <SubmitButton innerText="Delete" />
+        <div className="flex w-full items-center justify-center">
+          <p className="px-2 text-center text-sm text-zinc-400">
+            You are about to remove a note from the board.
+            <br />
+            Are you sure you want to proceed?
+          </p>
+          <span className="text-3xl">🦉</span>
+        </div>
+        <div className="flex w-full flex-col gap-2">
+          <SubmitButton innerText="Delete" />
+          <span className="text-center text-sm text-zinc-400">or</span>
+          <Link
+            href="/"
+            className="mx-auto w-full max-w-sm rounded-xl border-2 border-[#ffb220] bg-white py-4 text-center text-[0.75em] font-black uppercase text-[#ffb220] outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
+          >
+            Cancel
+          </Link>
+        </div>
       </form>
     </>
   );
