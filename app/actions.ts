@@ -39,3 +39,22 @@ export async function deletePost(id: string) {
     return "fail";
   }
 }
+
+export async function updatePost(post: Post) {
+  if (!post.author) {
+    post.author = "stranger";
+  }
+  const res = await fetch(process.env.NEXT_PUBLIC_DB_URL + "/" + post.id, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(post),
+  });
+  if (res.ok) {
+    revalidatePath("/");
+    redirect("/");
+  } else {
+    return "fail";
+  }
+}
