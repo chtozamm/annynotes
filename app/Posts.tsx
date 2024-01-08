@@ -58,7 +58,7 @@ export default function Posts({ data }: { data: Post[] }) {
         {posts?.map((post: Post, idx: number) => (
           <li
             key={post.id}
-            className="relative mb-8 flex flex-col items-center whitespace-pre-wrap break-words rounded-2xl border-t-2 border-[#ffb220] bg-[#fffbf7] px-4 pb-8 pt-4 text-center leading-6 md:px-8"
+            className="relative mb-8 flex flex-col items-center whitespace-pre-wrap break-words rounded-2xl border-t-2 border-[#ffb220] bg-[#fffbf7] px-4 pb-8 pt-4 text-center leading-6 lg:px-8"
           >
             <Image
               className="pointer-events-none absolute left-[calc(50%-12px)] top-[-0.9em] select-none"
@@ -71,7 +71,7 @@ export default function Posts({ data }: { data: Post[] }) {
               Note #{posts.length - idx}
             </span>
             <button
-              className="flex select-text items-center gap-1.5 italic text-zinc-400 outline-none hover:text-[#7c7c8b] focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4"
+              className="flex select-text items-center gap-1.5 italic text-zinc-400 outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
               onClick={() =>
                 router.push(
                   `${pathname}?from=${post.author

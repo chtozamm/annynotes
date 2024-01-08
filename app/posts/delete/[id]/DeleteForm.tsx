@@ -1,6 +1,7 @@
 "use client";
 
 import { deletePost } from "@/app/actions";
+import SubmitButton from "@/components/SubmitButton";
 
 export default function DeleteForm({ id }: { id: string }) {
   const handleForm = async (data: FormData) => {
@@ -28,17 +29,12 @@ export default function DeleteForm({ id }: { id: string }) {
         <input
           type="password"
           name="passkey"
-          className="w-full max-w-sm rounded-xl border-t-2 border-[#ffb220] px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 focus-visible:bg-[#fffbf7] focus-visible:shadow-md focus-visible:shadow-[#fffbf7] sm:px-3 sm:py-3"
+          className="w-full max-w-sm rounded-xl border-t-2 border-[#ffb220] px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 sm:px-3 sm:py-3 lg:focus-visible:bg-[#fffbf7] lg:focus-visible:shadow-md lg:focus-visible:shadow-[#fffbf7]"
           placeholder="Passkey*"
           autoComplete="off"
           required
         />
-        <button
-          className="mx-auto mb-4 w-full max-w-sm rounded-xl bg-[#ffb220] py-4 text-[0.75em] font-black uppercase text-white outline-none hover:bg-amber-500 focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4"
-          type="submit"
-        >
-          Delete
-        </button>
+        <SubmitButton innerText="Delete" />
       </form>
     </>
   );

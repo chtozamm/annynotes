@@ -26,7 +26,7 @@ export default async function Home() {
 const ShareButton = () => (
   <Link
     href={"/posts/new"}
-    className="mx-auto w-full max-w-sm rounded-xl bg-[#ffb220] py-4 text-center text-[0.75em] font-black uppercase text-white outline-none hover:bg-amber-500 focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4"
+    className="mx-auto w-full max-w-sm rounded-xl bg-[#ffb220] py-4 text-center text-[0.75em] font-black uppercase text-white outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
   >
     Share
   </Link>
@@ -41,7 +41,7 @@ const Fallback = () => (
       {[0, 1, 2].map((_, i) => (
         <li
           key={i}
-          className="relative mb-8 h-48 whitespace-pre-wrap break-words rounded-2xl border-t-2 border-[#ffb220] bg-[#fffbf7] px-4 pb-8 pt-4 text-center leading-6 md:px-8"
+          className="relative mb-8 h-48 whitespace-pre-wrap break-words rounded-2xl border-t-2 border-[#ffb220] bg-[#fffbf7] px-4 pb-8 pt-4 text-center leading-6 lg:px-8"
         >
           <Image
             className="absolute left-[calc(50%-12px)] top-[-0.9em]"

@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="mx-auto flex max-w-2xl flex-col items-center px-4 font-sans selection:bg-[#ffb220] selection:text-white md:px-0">
+      <body className="mx-auto flex max-w-2xl flex-col items-center px-4 font-sans selection:bg-[#ffb220] selection:text-white lg:px-0">
         <Header />
         {children}
       </body>
@@ -27,7 +27,7 @@ const Header = () => (
   <header className="py-8">
     <Link
       href="/"
-      className="mx-auto flex w-fit items-center justify-center gap-1.5 font-['Ringbearer'] text-4xl font-bold text-[#ffb220] outline-none focus-visible:rounded-lg focus-visible:ring-2 focus-visible:ring-[#ffb220] focus-visible:ring-offset-4"
+      className="mx-auto flex w-fit items-center justify-center gap-1.5 font-['Ringbearer'] text-4xl font-bold text-[#ffb220] outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:rounded-lg lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
     >
       Annynotes
       <Image
