@@ -27,6 +27,8 @@ const characters = [
   "Yoda",
   "Town's Guard",
   "Luna Lovegood",
+  "Niffler",
+  "Newt Scamander",
 ];
 
 export default function Posts({ data }: { data: Post[] }) {
@@ -38,14 +40,15 @@ export default function Posts({ data }: { data: Post[] }) {
   const id = searchParams.get("id") || null;
 
   // Filter posts based on the search params
-  const posts: Post[] = id
-    ? data?.filter((post: Post) => post.id === id)
-    : data?.filter((post: Post) =>
-        from
-          ? post.author.toLowerCase() ===
-            from.replaceAll("_", " ").toLowerCase()
-          : true,
-      ) || [];
+  const posts: Post[] = data;
+  // id
+  //   ? data?.filter((post: Post) => post.id === id)
+  //   : data?.filter((post: Post) =>
+  //       from
+  //         ? post.author.toLowerCase() ===
+  //           from.replaceAll("_", " ").toLowerCase()
+  //         : true,
+  //     ) || [];
 
   return (
     <>

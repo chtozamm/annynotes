@@ -3,18 +3,28 @@ import Link from "next/link";
 import Image from "next/image";
 import Posts from "./Posts";
 
-export default async function Home() {
+export default async function Home({ searchParams }: { searchParams: any }) {
   const data: Post[] = await fetch(
     process.env.NEXT_PUBLIC_DB_URL + "?sort=-created&perPage=1000",
   )
     .then((res) => res.json())
     .then((data) => data.items);
+
+  // Filter posts based on the search params
+  const posts = data.filter((post) =>
+    searchParams.id
+      ? post.id === searchParams.id
+      : searchParams.from
+        ? post.author.toLowerCase() ===
+          searchParams.from.replaceAll("_", " ").toLowerCase()
+        : true,
+  );
   return (
     <>
       <ShareButton />
       {data.length > 0 ? (
         <Suspense fallback={<Fallback />}>
-          <Posts data={data} />
+          <Posts data={posts} />
         </Suspense>
       ) : (
         <Error />
