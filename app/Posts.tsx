@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 // List of characters who has associated picture in public/characters
@@ -34,14 +35,17 @@ export default function Posts({ data }: { data: Post[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const from = searchParams.get("from") || null;
+  const id = searchParams.get("id") || null;
 
   // Filter posts based on the search params
-  const posts: Post[] =
-    data?.filter((post: Post) =>
-      from
-        ? post.author.toLowerCase() === from.replaceAll("_", " ").toLowerCase()
-        : true,
-    ) || [];
+  const posts: Post[] = id
+    ? data?.filter((post: Post) => post.id === id)
+    : data?.filter((post: Post) =>
+        from
+          ? post.author.toLowerCase() ===
+            from.replaceAll("_", " ").toLowerCase()
+          : true,
+      ) || [];
 
   return (
     <>
@@ -67,9 +71,12 @@ export default function Posts({ data }: { data: Post[] }) {
               height={26}
               alt="scroll icon"
             />
-            <span className="w-fit select-text font-['Ringbearer'] text-lg font-bold text-[#ffb220]">
+            <button
+              className="w-fit select-text font-['Ringbearer'] text-lg font-bold text-[#ffb220] outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
+              onClick={() => router.push(`${pathname}?id=${post.id}`)}
+            >
               Note #{posts.length - idx}
-            </span>
+            </button>
             <button
               className="flex select-text items-center gap-1.5 italic text-zinc-400 outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
               onClick={() =>
@@ -98,6 +105,22 @@ export default function Posts({ data }: { data: Post[] }) {
           </li>
         ))}
       </ul>
+      {id && (
+        <div className="flex w-full flex-col gap-4">
+          <Link
+            href={`/posts/edit/${id}`}
+            className="mx-auto w-full max-w-sm rounded-xl bg-[#ffb220] py-4 text-center text-[0.75em] font-black uppercase text-white outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
+          >
+            Edit
+          </Link>
+          <Link
+            href={`/posts/delete/${id}`}
+            className="mx-auto w-full max-w-sm rounded-xl border-2 border-[#ffb220] bg-white py-4 text-center text-[0.75em] font-black uppercase text-[#ffb220] outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
+          >
+            Delete
+          </Link>
+        </div>
+      )}
     </>
   );
 }
