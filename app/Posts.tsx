@@ -50,13 +50,15 @@ export default function Posts({ data }: { data: Post[] }) {
   return (
     <>
       <h2 className="py-8 text-center font-['Ringbearer'] text-2xl font-bold lowercase text-[#ffb220]">
-        {from
-          ? posts.length > 0
-            ? `From ${from?.replaceAll("_", " ")}:`
-            : `${from?.replaceAll("_", " ")} hasn't posted anything yet`
-          : posts.length > 0
-            ? "Recent notes:"
-            : "Nothing has been posted yet"}
+        {id
+          ? `Runes: ${id}`
+          : from
+            ? posts.length > 0
+              ? `From ${from?.replaceAll("_", " ")}:`
+              : `${from?.replaceAll("_", " ")} hasn't posted anything yet`
+            : posts.length > 0
+              ? "Recent notes:"
+              : "Someone has stolen the notes! Try to reload the page to get them back"}
       </h2>
       <ul className="w-full">
         {posts?.map((post: Post, idx: number) => (
@@ -75,7 +77,7 @@ export default function Posts({ data }: { data: Post[] }) {
               className="w-fit select-text font-['Ringbearer'] text-lg font-bold text-[#ffb220] outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
               onClick={() => router.push(`${pathname}?id=${post.id}`)}
             >
-              Note #{posts.length - idx}
+              {id ? "Note" : `Note #${posts.length - idx}`}
             </button>
             <button
               className="flex select-text items-center gap-1.5 italic text-zinc-400 outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
