@@ -5,7 +5,7 @@ const SubmitButton = ({ innerText }: { innerText: string }) => {
 
   return (
     <button
-      className="mx-auto mb-4 inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-[#ffb220] py-4 text-[0.75em] font-black uppercase text-white outline-none active:opacity-75 disabled:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
+      className="mx-auto inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-[#ffb220] py-4 text-[0.75em] font-black uppercase text-white outline-none active:opacity-75 disabled:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
       type="submit"
       disabled={pending}
     >
