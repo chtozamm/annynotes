@@ -54,7 +54,7 @@ export default function Posts({ data }: { data: Post[] }) {
     <>
       <h2 className="py-8 text-center font-['Ringbearer'] text-2xl font-bold lowercase text-[#ffb220]">
         {id
-          ? `Runes: ${id}`
+          ? `Selected note:`
           : from
             ? posts.length > 0
               ? `From ${from?.replaceAll("_", " ")}:`
