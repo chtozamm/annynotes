@@ -24,7 +24,7 @@ export default async function Home({ searchParams }: { searchParams: any }) {
       <ShareButton />
       {data.length > 0 ? (
         <Suspense fallback={<Fallback />}>
-          <Posts data={posts} />
+          <Posts posts={posts} />
         </Suspense>
       ) : (
         <Error />
