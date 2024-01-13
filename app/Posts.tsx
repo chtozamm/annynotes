@@ -31,24 +31,13 @@ const characters = [
   "Newt Scamander",
 ];
 
-export default function Posts({ data }: { data: Post[] }) {
+export default function Posts({ posts }: { posts: Post[] }) {
   // NextJS hooks
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const from = searchParams.get("from") || null;
   const id = searchParams.get("id") || null;
-
-  // Filter posts based on the search params
-  const posts: Post[] = data;
-  // id
-  //   ? data?.filter((post: Post) => post.id === id)
-  //   : data?.filter((post: Post) =>
-  //       from
-  //         ? post.author.toLowerCase() ===
-  //           from.replaceAll("_", " ").toLowerCase()
-  //         : true,
-  //     ) || [];
 
   return (
     <>
@@ -75,6 +64,7 @@ export default function Posts({ data }: { data: Post[] }) {
               width={26}
               height={26}
               alt="scroll icon"
+              priority
             />
             <button
               className="w-fit select-text font-['Ringbearer'] text-lg font-bold text-[#ffb220] outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-[#ffb220] lg:focus-visible:ring-offset-4"
@@ -103,6 +93,7 @@ export default function Posts({ data }: { data: Post[] }) {
                   width={20}
                   height={20}
                   alt=""
+                  priority
                 />
               ) : null}
             </button>
