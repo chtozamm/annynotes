@@ -1,30 +1,48 @@
 import { Suspense } from "react"
+import Link from "next/link"
 import Image from "next/image"
 import Posts from "@/components/Posts"
 import LinkButton from "@/components/LinkButton"
-import Confetti from "@/components/Confetti"
+import { cookies } from "next/headers"
 
-export default async function Home() {
+export default async function Home({
+  params: { id },
+}: {
+  params: { id: string }
+}) {
   const data: Post[] = await fetch(
     process.env.NEXT_PUBLIC_DB_URL + "?sort=-created&perPage=1000",
   )
     .then((res) => res.json())
     .then((data) => data.items)
 
-  const posts = data
+  // Filter posts based on the search params
+  const posts = data.filter((post) => post.id === id)
 
+  const sessionId = cookies().get("user_id")?.value as string
   return (
     <>
-      {/* <Confetti /> */}
       <LinkButton label="Share" />
       {data.length > 0 ? (
         <Suspense fallback={<Fallback />}>
           <h2 className="my-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
-            {posts.length > 0
-              ? "Recent notes:"
-              : "Someone has stolen all the notes! Try to reload the page to try to get them back"}
+            Selected note:
           </h2>
           <Posts posts={posts} />
+          {id && sessionId === posts[0]?.user && (
+            <div className="flex w-full flex-col gap-4">
+              <Link
+                href={`/posts/edit/${id}`}
+                className="mx-auto w-full max-w-sm rounded-xl bg-primary py-4 text-center text-[0.75em] font-black uppercase text-white outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
+                Edit
+              </Link>
+              <Link
+                href={`/posts/delete/${id}`}
+                className="mx-auto w-full max-w-sm rounded-xl border-2 border-primary bg-white py-4 text-center text-[0.75em] font-black uppercase text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
+                Delete
+              </Link>
+            </div>
+          )}
         </Suspense>
       ) : (
         <Error />

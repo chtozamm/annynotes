@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "Ringbearer";
-    src: url("/fonts/RINGM___.TTF") format("truetype");
+  font-family: "Ringbearer";
+  src: url("/fonts/Ringbearer.ttf") format("truetype");
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }

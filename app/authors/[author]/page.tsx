@@ -2,28 +2,32 @@ import { Suspense } from "react"
 import Image from "next/image"
 import Posts from "@/components/Posts"
 import LinkButton from "@/components/LinkButton"
-import Confetti from "@/components/Confetti"
 
-export default async function Home() {
+export default async function Home({
+  params: { author },
+}: {
+  params: { author: string }
+}) {
   const data: Post[] = await fetch(
     process.env.NEXT_PUBLIC_DB_URL + "?sort=-created&perPage=1000",
   )
     .then((res) => res.json())
     .then((data) => data.items)
 
-  const posts = data
-
+  // Filter posts based on the search params
+  const posts = data.filter(
+    (post) => post.author.toLowerCase() === author.replaceAll("_", " "),
+  )
   return (
     <>
-      {/* <Confetti /> */}
       <LinkButton label="Share" />
+      <h2 className="my-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
+        {posts.length > 0
+          ? `From ${author.charAt(0).toUpperCase() + author.replaceAll("_", " ").slice(1)}:`
+          : `${author.replaceAll("_", " ")} hasn't posted anything yet`}
+      </h2>
       {data.length > 0 ? (
         <Suspense fallback={<Fallback />}>
-          <h2 className="my-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
-            {posts.length > 0
-              ? "Recent notes:"
-              : "Someone has stolen all the notes! Try to reload the page to try to get them back"}
-          </h2>
           <Posts posts={posts} />
         </Suspense>
       ) : (
