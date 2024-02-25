@@ -2,11 +2,11 @@ import { Suspense } from "react"
 import Image from "next/image"
 import Posts from "@/components/Posts"
 import LinkButton from "@/components/LinkButton"
-import Confetti from "@/components/Confetti"
 
 export default async function Home() {
   const data: Post[] = await fetch(
     process.env.NEXT_PUBLIC_DB_URL + "?sort=-created&perPage=1000",
+    { next: { tags: ["posts"] } },
   )
     .then((res) => res.json())
     .then((data) => data.items)
@@ -15,7 +15,6 @@ export default async function Home() {
 
   return (
     <>
-      {/* <Confetti /> */}
       <LinkButton label="Share" />
       {data.length > 0 ? (
         <Suspense fallback={<Fallback />}>

@@ -2,7 +2,7 @@ type Post = {
   author: string
   message: string
   id: string
-  user?: string
+  user_id?: string
 }
 
 type User = {

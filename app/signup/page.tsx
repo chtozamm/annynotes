@@ -1,11 +1,10 @@
 import LinkButton from "@/components/LinkButton"
 import SignUpForm from "@/components/SignUpForm"
-import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
+import { getSession } from "../lib"
 
-export default function Page() {
-  const cookieStore = cookies()
-  const session = cookieStore.has("token")
+export default async function Page() {
+  const session = await getSession()
   if (session) redirect("/")
   return (
     <>

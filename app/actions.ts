@@ -1,19 +1,20 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { revalidateTag } from "next/cache"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
+import { getSession, getUserId } from "./lib"
 
-const cookieStore = cookies()
-const token: string = cookieStore.get("token")?.value || ""
-const userId: string = cookieStore.get("user_id")?.value || ""
 const month = 30 * 24 * 60 * 60 * 1000
 
 export async function createPost(post: Post) {
+  const token = await getSession()
+  const userId = await getUserId()
+  if (!token || !userId) return
   if (!post.author) {
     post.author = "stranger"
   }
-  post.user = userId
+  post.user_id = userId
   const res = await fetch(process.env.NEXT_PUBLIC_DB_URL as string, {
     method: "POST",
     headers: {
@@ -23,7 +24,7 @@ export async function createPost(post: Post) {
     body: JSON.stringify(post),
   })
   if (res.ok) {
-    revalidatePath("/")
+    revalidateTag("posts")
     redirect("/")
   } else {
     // TODO: Return proper response
@@ -32,6 +33,9 @@ export async function createPost(post: Post) {
 }
 
 export async function deletePost(id: string) {
+  const token = await getSession()
+  const userId = await getUserId()
+  if (!token || !userId) return
   const res = await fetch(process.env.NEXT_PUBLIC_DB_URL + "/" + id, {
     method: "DELETE",
     headers: {
@@ -44,7 +48,7 @@ export async function deletePost(id: string) {
     }),
   })
   if (res.ok) {
-    revalidatePath("/")
+    revalidateTag("posts")
     redirect("/")
   } else {
     // TODO: Return proper response
@@ -53,6 +57,9 @@ export async function deletePost(id: string) {
 }
 
 export async function updatePost(post: Post) {
+  const token = await getSession()
+  const userId = await getUserId()
+  if (!token || !userId) return
   if (!post.author) {
     post.author = "stranger"
   }
@@ -66,7 +73,7 @@ export async function updatePost(post: Post) {
     body: JSON.stringify(post),
   })
   if (res.ok) {
-    revalidatePath("/")
+    revalidateTag("posts")
     redirect("/")
   } else {
     // TODO: Return proper response
@@ -92,14 +99,19 @@ export async function signUp(
       identity: credentials.email,
       password: credentials.password,
     })
-    cookieStore.set("token", signInRes.token)
-    cookieStore.set("user_id", signInRes.record.id, {
-      httpOnly: true,
-      sameSite: "lax",
-      expires: Date.now() + month,
-    })
-    revalidatePath("/")
-    redirect("/")
+    try {
+      cookies().set("session", signInRes.token, {
+        httpOnly: true,
+        expires: Date.now() + month,
+      })
+      cookies().set("user_id", signInRes.record.id, {
+        httpOnly: true,
+        expires: Date.now() + month,
+      })
+    } finally {
+      redirect("/")
+    }
+    // revalidateTag("posts")
   } else {
     const err = await res.json()
     return err.message
@@ -118,14 +130,16 @@ export async function signIn({ identity, password }: SignInCredentials) {
     },
   ).then((res) => res.json())
   if (res.record) {
-    cookieStore.set("token", res.token)
-    cookieStore.set("user_id", res.record.id, {
-      httpOnly: true,
-      sameSite: "lax",
-      expires: Date.now() + month,
-    })
-    revalidatePath("/")
-    redirect("/")
+    try {
+      cookies().set("session", res.token)
+      cookies().set("user_id", res.record.id, {
+        httpOnly: true,
+        expires: Date.now() + month,
+      })
+    } finally {
+      redirect("/")
+    }
+    // revalidateTag("posts")
   } else {
     return res.message
   }

@@ -1,12 +1,11 @@
 import LinkButton from "@/components/LinkButton"
 import SignInForm from "@/components/SignInForm"
-import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
+import { getSession } from "../lib"
 
-export default function Page() {
-  const cookieStore = cookies()
-  const session = cookieStore.has("token")
-  if (session) redirect("/")
+export default async function Page() {
+  const session = await getSession()
+  if (session != null) redirect("/")
   return (
     <>
       <h2 className="mt-2 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">

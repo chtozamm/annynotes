@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import Posts from "@/components/Posts"
 import LinkButton from "@/components/LinkButton"
-import { cookies } from "next/headers"
+import { getUserId } from "@/app/lib"
 
 export default async function Home({
   params: { id },
@@ -12,6 +12,7 @@ export default async function Home({
 }) {
   const data: Post[] = await fetch(
     process.env.NEXT_PUBLIC_DB_URL + "?sort=-created&perPage=1000",
+    { next: { tags: ["posts"] } },
   )
     .then((res) => res.json())
     .then((data) => data.items)
@@ -19,7 +20,7 @@ export default async function Home({
   // Filter posts based on the search params
   const posts = data.filter((post) => post.id === id)
 
-  const sessionId = cookies().get("user_id")?.value as string
+  const userId = await getUserId()
   return (
     <>
       <LinkButton label="Share" />
@@ -29,7 +30,7 @@ export default async function Home({
             Selected note:
           </h2>
           <Posts posts={posts} />
-          {id && sessionId === posts[0]?.user && (
+          {id && userId === posts[0]?.user_id && (
             <div className="flex w-full flex-col gap-4">
               <Link
                 href={`/posts/edit/${id}`}

@@ -10,6 +10,7 @@ export default async function Home({
 }) {
   const data: Post[] = await fetch(
     process.env.NEXT_PUBLIC_DB_URL + "?sort=-created&perPage=1000",
+    { next: { tags: ["posts"] } },
   )
     .then((res) => res.json())
     .then((data) => data.items)
