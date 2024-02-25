@@ -109,7 +109,7 @@ export async function signUp(
         expires: Date.now() + month,
       })
     } finally {
-      redirect("/")
+      redirect("/posts/new")
     }
     // revalidateTag("posts")
   } else {
@@ -137,7 +137,7 @@ export async function signIn({ identity, password }: SignInCredentials) {
         expires: Date.now() + month,
       })
     } finally {
-      redirect("/")
+      redirect("/posts/new")
     }
     // revalidateTag("posts")
   } else {
