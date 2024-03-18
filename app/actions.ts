@@ -128,7 +128,10 @@ export async function signIn({ identity, password }: SignInCredentials) {
   ).then((res) => res.json())
   if (res.record) {
     try {
-      cookies().set("session_token", res.token)
+      cookies().set("session_token", res.token, {
+        httpOnly: true,
+        expires: Date.now() + month,
+      })
       cookies().set("user_id", res.record.id, {
         httpOnly: true,
         expires: Date.now() + month,
