@@ -1,11 +1,12 @@
 "use client"
 
-import Link from "next/link"
 import { updatePost } from "@/app/actions"
 import SubmitButton from "@/components/SubmitButton"
 import TextArea from "@/components/TextArea"
+import { useRouter } from "next/navigation"
 
 export default function UpdateForm({ post }: { post: Post }) {
+  const router = useRouter()
   const handleForm = async (data: FormData) => {
     const inputName = (data.get("author") as string).trim()
     const inputMessage = (data.get("message") as string).trim()
@@ -42,11 +43,11 @@ export default function UpdateForm({ post }: { post: Post }) {
       <div className="flex w-full flex-col gap-2">
         <SubmitButton innerText="Update" />
         <span className="text-center text-sm text-zinc-400">or</span>
-        <Link
-          href="/"
+        <button
+          onClick={() => router.back()}
           className="mx-auto w-full max-w-sm rounded-xl border-2 border-primary bg-white py-4 text-center text-[0.75em] font-black uppercase text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
           Cancel
-        </Link>
+        </button>
       </div>
     </form>
   )

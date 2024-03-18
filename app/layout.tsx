@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import Header from "@/components/Header"
-import Confetti from "@/components/Confetti"
+// import Confetti from "@/components/Confetti"
 
 export const metadata: Metadata = {
   title: "Annynotes - The world of fantasy ✨",
@@ -22,7 +22,7 @@ export default function RootLayout({
       </head> */}
       <body className="mx-auto flex max-w-2xl flex-col items-center px-4 font-sans selection:bg-primary selection:text-white lg:px-0">
         <Header />
-        <Confetti />
+        {/* <Confetti /> */}
         {children}
       </body>
     </html>

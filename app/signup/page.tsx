@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 import { getSession } from "../lib"
 
 export default async function Page() {
-  const session = await getSession()
+  const [session, _] = await getSession()
   if (session) redirect("/")
   return (
     <>

@@ -10,30 +10,28 @@ export default function Posts({ posts }: { posts: Post[] }) {
           <li
             key={post.id}
             className="relative mb-8 flex flex-col items-center rounded-2xl border-t-2 border-primary bg-secondary px-4 pb-8 pt-4 text-center leading-6 lg:px-8">
-            <svg
+            {/* Birthday theme: */}
+            {/* <svg
               height="26"
               viewBox="0 0 24 24"
               shapeRendering="geometricPrecision"
               width="26"
               strokeWidth={1.5}
               className="pointer-events-none absolute left-[calc(50%-12px)] top-[-0.9em] select-none fill-white stroke-primary">
-              {/* <path
-                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                fill="var(--geist-fill)"/> */}
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"
               />
-            </svg>
-            {/* <Image
+            </svg> */}
+            <Image
               className="pointer-events-none absolute left-[calc(50%-12px)] top-[-0.9em] select-none"
               src="/icons/scroll.svg"
               width={26}
               height={26}
               alt="scroll icon"
               priority
-            /> */}
+            />
             <p className="w-full">
               <Link
                 href={`/posts/${post.id}`}

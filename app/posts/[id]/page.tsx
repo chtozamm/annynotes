@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import Posts from "@/components/Posts"
 import LinkButton from "@/components/LinkButton"
-import { getUserId } from "@/app/lib"
+import { getSession } from "@/app/lib"
 
 export default async function Home({
   params: { id },
@@ -20,7 +20,7 @@ export default async function Home({
   // Filter posts based on the search params
   const posts = data.filter((post) => post.id === id)
 
-  const userId = await getUserId()
+  const [_, userId] = await getSession()
   return (
     <>
       <LinkButton label="Share" />

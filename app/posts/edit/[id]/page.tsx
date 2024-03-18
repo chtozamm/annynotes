@@ -1,4 +1,4 @@
-import { getUserId } from "@/app/lib"
+import { getSession } from "@/app/lib"
 import { validateId } from "@/app/utils"
 import UpdateForm from "@/components/UpdateForm"
 import { redirect } from "next/navigation"
@@ -14,7 +14,7 @@ export default async function Page({
       cache: "no-store",
     }).then((res) => res.json())
 
-    const userId = await getUserId()
+    const [_, userId] = await getSession()
     if (userId !== post.user_id) redirect("/")
 
     if (post.message === "The requested resource wasn't found.") {
@@ -24,6 +24,6 @@ export default async function Page({
 
     return <UpdateForm post={post} />
   } else {
-    return <p>Invalid id</p>
+    return <p>Invalid post id</p>
   }
 }

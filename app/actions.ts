@@ -3,13 +3,12 @@
 import { revalidateTag } from "next/cache"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
-import { getSession, getUserId } from "./lib"
+import { getSession } from "./lib"
 
 const month = 30 * 24 * 60 * 60 * 1000
 
 export async function createPost(post: Post) {
-  const token = await getSession()
-  const userId = await getUserId()
+  const [token, userId] = await getSession()
   if (!token || !userId) return
   if (!post.author) {
     post.author = "stranger"
@@ -33,8 +32,7 @@ export async function createPost(post: Post) {
 }
 
 export async function deletePost(id: string) {
-  const token = await getSession()
-  const userId = await getUserId()
+  const [token, userId] = await getSession()
   if (!token || !userId) return
   const res = await fetch(process.env.NEXT_PUBLIC_DB_URL + "/" + id, {
     method: "DELETE",
@@ -57,8 +55,7 @@ export async function deletePost(id: string) {
 }
 
 export async function updatePost(post: Post) {
-  const token = await getSession()
-  const userId = await getUserId()
+  const [token, userId] = await getSession()
   if (!token || !userId) return
   if (!post.author) {
     post.author = "stranger"
@@ -100,7 +97,7 @@ export async function signUp(
       password: credentials.password,
     })
     try {
-      cookies().set("session", signInRes.token, {
+      cookies().set("session_token", signInRes.token, {
         httpOnly: true,
         expires: Date.now() + month,
       })
@@ -131,7 +128,7 @@ export async function signIn({ identity, password }: SignInCredentials) {
   ).then((res) => res.json())
   if (res.record) {
     try {
-      cookies().set("session", res.token)
+      cookies().set("session_token", res.token)
       cookies().set("user_id", res.record.id, {
         httpOnly: true,
         expires: Date.now() + month,
