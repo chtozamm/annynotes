@@ -39,12 +39,12 @@ export default function Posts({ posts }: { posts: Post[] }) {
                 {posts.length > 1 ? `Note #${posts.length - idx}` : "Note"}
               </Link>
             </p>
-            <p className="w-full">
+            <p className="flex w-full items-center justify-center">
               <Link
                 href={`/authors/${post.author
                   .replaceAll(" ", "_")
                   .toLowerCase()}`}
-                className="flex select-text items-center justify-center gap-1.5 italic text-zinc-400 outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
+                className="flex w-fit select-text items-center justify-center gap-1.5 italic text-zinc-400 outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
                 <span>from {post.author}</span>
                 {characters.includes(post.author) ? (
                   <Image
