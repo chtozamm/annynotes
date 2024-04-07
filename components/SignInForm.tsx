@@ -42,7 +42,7 @@ export default function SignInForm() {
         autoComplete="off"
         required
       />
-      <SubmitButton innerText="Login" />
+      <SubmitButton innerText="Sign In" />
     </form>
   )
 }

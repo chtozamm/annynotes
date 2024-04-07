@@ -5,7 +5,11 @@ import { createPost } from "@/app/actions"
 import { generateUniqueId } from "@/app/utils"
 import SubmitButton from "@/components/SubmitButton"
 
-export default function ShareForm() {
+export default function ShareForm({
+  user,
+}: {
+  user: { id: string; verified: boolean }
+}) {
   const handleForm = async (data: FormData) => {
     const inputName = (data.get("author") as string).trim()
     const inputMessage = (data.get("message") as string).trim()
@@ -14,6 +18,8 @@ export default function ShareForm() {
       id: generateUniqueId(),
       author: inputName,
       message: inputMessage,
+      user_id: user.id,
+      verified: user.verified,
     }
 
     const res = await createPost(newPost)
