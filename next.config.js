@@ -1,5 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        hostname: "annynotes.pockethost.io",
+      },
+    ],
+  },
+}
 
 // const withPWA = require('next-pwa')({
 //     dest: 'public',
