@@ -17,12 +17,12 @@ export default async function Home({
 
   // Filter posts based on the search params
   const posts = data.filter(
-    (post) => post.author.toLowerCase() === author.replaceAll("_", " "),
+    (post) => post.author.toLowerCase() === author.replaceAll("_", " ") && post.verified,
   )
   return (
     <>
-      <LinkButton label="Share" />
-      <h2 className="my-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
+      {/* <LinkButton label="Share" /> */}
+      <h2 className="mb-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
         {posts.length > 0
           ? `From ${author.charAt(0).toUpperCase() + author.replaceAll("_", " ").slice(1)}:`
           : `${author.replaceAll("_", " ")} hasn't posted anything yet`}

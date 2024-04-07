@@ -11,14 +11,15 @@ export default async function Home() {
     .then((res) => res.json())
     .then((data) => data.items)
 
-  const posts = data
+  // const posts = data.filter((post) => post.verified === true)
+  const posts = data.filter((post) => post.verified === true)
 
   return (
     <>
-      <LinkButton label="Share" />
+      {/* <LinkButton label="Share" /> */}
       {data.length > 0 ? (
         <Suspense fallback={<Fallback />}>
-          <h2 className="my-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
+          <h2 className="mb-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
             {posts.length > 0
               ? "Recent notes:"
               : "Someone has stolen all the notes! Try to reload the page to try to get them back"}

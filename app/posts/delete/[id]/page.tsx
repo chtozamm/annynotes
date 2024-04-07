@@ -11,7 +11,7 @@ export default async function Page({
   const post: Post = await fetch(process.env.NEXT_PUBLIC_DB_URL + "/" + id, {
     cache: "no-store",
   }).then((res) => res.json())
-  const [_, userId] = await getSession()
+  const [_, userId, __] = await getSession()
   if (userId !== post.user_id) redirect("/")
   if (validateId(id)) {
     return <DeleteForm id={id} />

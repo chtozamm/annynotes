@@ -2,7 +2,6 @@ import { Suspense } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import Posts from "@/components/Posts"
-import LinkButton from "@/components/LinkButton"
 import { getSession } from "@/app/lib"
 
 export default async function Home({
@@ -20,13 +19,12 @@ export default async function Home({
   // Filter posts based on the search params
   const posts = data.filter((post) => post.id === id)
 
-  const [_, userId] = await getSession()
+  const [_, userId, __] = await getSession()
   return (
     <>
-      <LinkButton label="Share" />
       {data.length > 0 ? (
         <Suspense fallback={<Fallback />}>
-          <h2 className="my-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
+          <h2 className="mb-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
             Selected note:
           </h2>
           <Posts posts={posts} />
@@ -54,7 +52,7 @@ export default async function Home({
 
 const Fallback = () => (
   <>
-    <h2 className="my-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
+    <h2 className="mb-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
       Looking for notes...
     </h2>
     <ul className="w-full">

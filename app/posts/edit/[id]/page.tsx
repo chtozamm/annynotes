@@ -14,7 +14,7 @@ export default async function Page({
       cache: "no-store",
     }).then((res) => res.json())
 
-    const [_, userId] = await getSession()
+    const [_, userId, __] = await getSession()
     if (userId !== post.user_id) redirect("/")
 
     if (post.message === "The requested resource wasn't found.") {
