@@ -1,3 +1,6 @@
+// TODO: replace the hard-coded list and pictures
+// with data from database (name, image_url)
+
 // List of characters who has associated picture in public/characters
 export const characters = [
   "Anakin Skywalker",

@@ -11,7 +11,7 @@ type User = {
   name: string;
   username: string;
   password: string;
-  passwordConfirm?: string;
+  // passwordConfirm?: string;
   verified: boolean;
   id: string;
 };

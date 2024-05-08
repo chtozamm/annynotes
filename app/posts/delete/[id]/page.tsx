@@ -12,10 +12,12 @@ export default async function Page({
     cache: "no-store",
   }).then((res) => res.json());
   const [_, userId, __] = await getSession();
+  // TODO: Return a message "unauthorized" with
+  // visible timer and redirect after 3 seconds
   if (userId !== post.user_id) redirect("/");
   if (validateId(id)) {
     return <DeleteForm id={id} />;
   } else {
-    return <p>Invalid id</p>;
+    return <p>Invalid post id</p>;
   }
 }
