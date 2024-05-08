@@ -27,17 +27,17 @@ export default function SignInForm() {
       className="mb-8 flex w-full max-w-sm flex-col items-center gap-4"
       id="postForm">
       <input
-        type="text"
+        type="email"
         name="identity"
         className="w-full max-w-sm rounded-xl border-t-2 border-primary px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 sm:px-3 sm:py-3 lg:focus-visible:bg-secondary lg:focus-visible:shadow-md lg:focus-visible:shadow-secondary"
-        placeholder="Email or username"
+        placeholder="Email"
         autoComplete="off"
         required
       />
       <input
         type="password"
         name="password"
-        className="w-full max-w-sm rounded-xl mb-4 border-t-2 border-primary px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 sm:px-3 sm:py-3 lg:focus-visible:bg-secondary lg:focus-visible:shadow-md lg:focus-visible:shadow-secondary"
+        className="mb-4 w-full max-w-sm rounded-xl border-t-2 border-primary px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 sm:px-3 sm:py-3 lg:focus-visible:bg-secondary lg:focus-visible:shadow-md lg:focus-visible:shadow-secondary"
         placeholder="Password"
         autoComplete="off"
         required

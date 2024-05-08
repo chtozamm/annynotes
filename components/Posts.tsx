@@ -32,6 +32,11 @@ export default function Posts({ posts }: { posts: Post[] }) {
               alt="scroll icon"
               priority
             />
+            {/* {!post.verified && (
+              <span className="absolute right-4 font-sans text-sm font-normal text-gray-400">
+                not verified
+              </span>
+            )} */}
             <p className="w-full">
               <Link
                 href={`/posts/${post.id}`}

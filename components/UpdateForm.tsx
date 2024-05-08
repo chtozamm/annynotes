@@ -12,7 +12,7 @@ export default function UpdateForm({ post }: { post: Post }) {
     const inputMessage = (data.get("message") as string).trim()
 
     const updatedPost: Post = {
-      id: post.id,
+      ...post,
       author: inputName || post.author,
       message: inputMessage || post.message,
     }

@@ -2,8 +2,8 @@ type Post = {
   author: string
   message: string
   id: string
-  user_id?: string
-  verified?: boolean
+  user_id: string
+  verified: boolean
 }
 
 type User = {
@@ -32,9 +32,9 @@ type SignInCredentials = {
 
 type SignUpCredentials = {
   email: string
-  username: string
+  username?: string
   password: string
   passwordConfirm: string
-  name: string
+  name?: string
   emailVisibility: boolean
 }

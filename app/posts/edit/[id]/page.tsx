@@ -22,7 +22,15 @@ export default async function Page({
       redirect("/")
     }
 
-    return <UpdateForm post={post} />
+    return (
+      <>
+        <h2 className="mt-2 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
+          Edit note
+        </h2>
+        <p className="mb-4 text-sm text-zinc-400">Change name or message</p>
+        <UpdateForm post={post} />
+      </>
+    )
   } else {
     return <p>Invalid post id</p>
   }

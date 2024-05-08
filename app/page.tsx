@@ -2,6 +2,7 @@ import { Suspense } from "react"
 import Image from "next/image"
 import Posts from "@/components/Posts"
 import LinkButton from "@/components/LinkButton"
+// import { getSession } from "./lib"
 
 export default async function Home() {
   const data: Post[] = await fetch(
@@ -11,8 +12,11 @@ export default async function Home() {
     .then((res) => res.json())
     .then((data) => data.items)
 
-  // const posts = data.filter((post) => post.verified === true)
-  const posts = data.filter((post) => post.verified === true)
+  // const [_, userId, __] = await getSession()
+  const posts = data
+  // .filter(
+  //   (post) => post.verified === true || post.user_id === userId,
+  // )
 
   return (
     <>
