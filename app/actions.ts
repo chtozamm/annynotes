@@ -38,7 +38,9 @@ export async function createPost(post: Post) {
   }
   if (res.ok) {
     revalidateTag("posts")
-    post.verified ? redirect("/") : redirect("/profile/posts")
+    // post.verified ? redirect("/") : redirect("/profile/posts")
+    const post = await res.json()
+    redirect("/posts/" + post.id)
   } else {
     // TODO: Return proper response
     return "fail"
@@ -171,7 +173,8 @@ export async function updateUser(
     //     expires: Date.now() + month,
     //   })
     revalidateTag("user")
-    redirect("/profile")
+    // redirect("/profile")
+    redirect("/")
   } else {
     const err = await res.json()
     return err.message
@@ -211,7 +214,8 @@ export async function signUp(
       })
     } finally {
       revalidateTag("user")
-      redirect("/profile")
+      // redirect("/profile")
+      redirect("/")
     }
   } else {
     const err = await res.json()
@@ -246,7 +250,8 @@ export async function signIn({ identity, password }: SignInCredentials) {
       })
     } finally {
       revalidateTag("user")
-      redirect("/profile")
+      // redirect("/profile")
+      redirect("/")
     }
   } else {
     return res.message
