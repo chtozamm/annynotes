@@ -17,11 +17,10 @@ export default function UpdateForm({ post }: { post: Post }) {
       message: inputMessage || post.message,
     };
 
-    const res = await updatePost(updatedPost);
+    const err = await updatePost(updatedPost);
 
-    if (res === "fail") {
-      console.log("Failed posting a note");
-      alert("Couldn't post a note: please, try again");
+    if (err) {
+      alert(err);
     }
   };
 

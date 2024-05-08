@@ -2,26 +2,16 @@
 
 import { deletePost } from "@/app/actions";
 import SubmitButton from "@/components/SubmitButton";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function DeleteForm({ id }: { id: string }) {
   const router = useRouter();
   const handleForm = async (data: FormData) => {
-    // const inputPasskey = data.get("passkey") || ""
-
-    // if (inputPasskey === process.env.NEXT_PUBLIC_PASSKEY) {
-    const res = await deletePost(id);
-    if (res === "fail") {
-      console.log("Failed deleting a note");
-      alert("Couldn't delete a note: please, try again");
+    const err = await deletePost(id);
+    if (err) {
+      alert(err);
     }
-    // } else {
-    //   console.log("Authorization failed: incorrect passkey")
-    //   alert("Authorization failed: incorrect passkey")
-    // }
   };
-
   return (
     <>
       <form
@@ -29,14 +19,6 @@ export default function DeleteForm({ id }: { id: string }) {
         className="flex w-full max-w-sm flex-col items-center gap-4"
         id="postForm"
       >
-        {/* <input
-        type="password"
-        name="passkey"
-        className="w-full max-w-sm rounded-xl border-t-2 border-primary px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 sm:px-3 sm:py-3 lg:focus-visible:bg-secondary lg:focus-visible:shadow-md lg:focus-visible:shadow-secondary"
-        placeholder="Passkey"
-        autoComplete="off"
-        required
-      /> */}
         <div className="flex w-full items-center justify-center rounded-xl border border-primary bg-secondary py-4">
           <p className="mx-2 text-center text-sm text-zinc-400">
             You are about to remove a note from the board.

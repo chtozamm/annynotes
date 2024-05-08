@@ -41,6 +41,7 @@ export default function SignInForm() {
         className="mb-4 w-full max-w-sm rounded-xl border-t-2 border-primary px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 sm:px-3 sm:py-3 lg:focus-visible:bg-secondary lg:focus-visible:shadow-md lg:focus-visible:shadow-secondary"
         placeholder="Password"
         autoComplete="off"
+        minLength={8}
         required
       />
       <SubmitButton innerText="Sign In" />

@@ -22,11 +22,10 @@ export default function ShareForm({
       verified: user.verified,
     };
 
-    const res = await createPost(newPost);
+    const err = await createPost(newPost);
 
-    if (res === "fail") {
-      console.log("Failed posting a note");
-      alert("Couldn't post a note: please, try again");
+    if (err) {
+      alert(err);
     }
   };
 

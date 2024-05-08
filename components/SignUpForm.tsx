@@ -9,22 +9,26 @@ export default function SignUpForm() {
     // const inputName = (data.get("name") as string).trim()
     // const inputUsername = (data.get("username") as string).trim()
     const inputPassword = (data.get("password") as string).trim();
-    const inputPasswordConfirm = (data.get("password") as string).trim();
+    const inputPasswordConfirm = (data.get("passwordConfirm") as string).trim();
 
-    const credentials: SignUpCredentials = {
-      email: inputEmail,
-      // username: inputUsername,
-      password: inputPassword,
-      passwordConfirm: inputPasswordConfirm,
-      // name: inputName,
-      emailVisibility: true,
-    };
+    if (inputPassword !== inputPasswordConfirm) {
+      alert("Passwords don't match");
+      return;
+    } else {
+      const credentials: SignUpCredentials = {
+        email: inputEmail,
+        // username: inputUsername,
+        password: inputPassword,
+        passwordConfirm: inputPasswordConfirm,
+        // name: inputName,
+        emailVisibility: true,
+      };
 
-    const err = await signUp(credentials);
+      const err = await signUp(credentials);
 
-    if (err) {
-      console.log(err);
-      alert(err);
+      if (err) {
+        alert(err);
+      }
     }
   };
 
@@ -70,6 +74,7 @@ export default function SignUpForm() {
         className="mb-4 w-full max-w-sm rounded-xl border-t-2 border-primary px-2 py-2 outline-none placeholder:text-sm placeholder:text-zinc-400 sm:px-3 sm:py-3 lg:focus-visible:bg-secondary lg:focus-visible:shadow-md lg:focus-visible:shadow-secondary"
         placeholder="Confirm Password"
         autoComplete="off"
+        minLength={8}
         required
       />
       <SubmitButton innerText="Sign up" />

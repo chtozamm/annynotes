@@ -1,15 +1,21 @@
 "use server";
 
 import { revalidateTag } from "next/cache";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getSession } from "./lib";
+import { cookies } from "next/headers";
 
-const expiration = 2 * 24 * 60 * 60 * 1000;
+function setCookie(key: string, value: string) {
+  const expiration = 2 * 24 * 60 * 60 * 1000; // 2 days
+  cookies().set(key, value, {
+    httpOnly: true,
+    expires: Date.now() + expiration,
+  });
+}
 
-export async function createPost(post: Post) {
+export async function createPost(post: Post): Promise<ResponseError> {
   const [token, _, __] = await getSession();
-  if (!token) return;
+  if (!token) return "Unauthenticated";
   if (!post.author) {
     post.author = "stranger";
   }
@@ -31,25 +37,20 @@ export async function createPost(post: Post) {
     },
   ).then((res) => res.json());
   if (authRefreshResponse.ok) {
-    cookies().set("token", authRefreshResponse.token, {
-      httpOnly: true,
-      expires: Date.now() + expiration,
-    });
+    setCookie("token", authRefreshResponse.token);
   }
   if (res.ok) {
     revalidateTag("posts");
-    // post.verified ? redirect("/") : redirect("/profile/posts")
     const post = await res.json();
     redirect("/posts/" + post.id);
   } else {
-    // TODO: Return proper response
-    return "fail";
+    return "Failed to create a post";
   }
 }
 
-export async function deletePost(id: string) {
+export async function deletePost(id: string): Promise<ResponseError> {
   const [token, userId, _] = await getSession();
-  if (!token || !userId) return;
+  if (!token || !userId) return "Unauthenticated";
   const res = await fetch(process.env.NEXT_PUBLIC_DB_URL + "/" + id, {
     method: "DELETE",
     headers: {
@@ -71,23 +72,19 @@ export async function deletePost(id: string) {
     },
   ).then((res) => res.json());
   if (authRefreshResponse.ok) {
-    cookies().set("token", authRefreshResponse.token, {
-      httpOnly: true,
-      expires: Date.now() + expiration,
-    });
+    setCookie("token", authRefreshResponse.token);
   }
   if (res.ok) {
     revalidateTag("posts");
     redirect("/");
   } else {
-    // TODO: Return proper response
-    return "fail";
+    return "Failed to delete a post";
   }
 }
 
-export async function updatePost(post: Post) {
+export async function updatePost(post: Post): Promise<ResponseError> {
   const [token, userId, _] = await getSession();
-  if (!token || !userId) return;
+  if (!token || !userId) return "Unauthenticated";
   if (!post.author) {
     post.author = "stranger";
   }
@@ -110,74 +107,13 @@ export async function updatePost(post: Post) {
     },
   ).then((res) => res.json());
   if (authRefreshResponse.ok) {
-    cookies().set("token", authRefreshResponse.token, {
-      httpOnly: true,
-      expires: Date.now() + expiration,
-    });
+    setCookie("token", authRefreshResponse.token);
   }
   if (res.ok) {
     revalidateTag("posts");
     redirect("/");
   } else {
-    // TODO: Return proper response
-    return "fail";
-  }
-}
-
-export async function updateUser(
-  credentials: UpdateUser,
-): Promise<ResponseError> {
-  const [token, _, __] = await getSession();
-  const res = await fetch(
-    (process.env.NEXT_PUBLIC_AUTH_URL + "/records/" + credentials.id) as string,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-      body: JSON.stringify(credentials),
-    },
-  );
-  const authRefreshResponse = await fetch(
-    process.env.NEXT_PUBLIC_AUTH_URL as string,
-    {
-      method: "POST",
-      headers: {
-        Authorization: token,
-      },
-    },
-  ).then((res) => res.json());
-  if (authRefreshResponse.ok) {
-    cookies().set("token", authRefreshResponse.token, {
-      httpOnly: true,
-      expires: Date.now() + expiration,
-    });
-  }
-  if (res.ok) {
-    // const signInRes = await signIn({
-    //   identity: credentials.email,
-    //   password: credentials.password,
-    // })
-    // try {
-    //   cookies().set("token", signInRes.token, {
-    //     httpOnly: true,
-    //     expires: Date.now() + month,
-    //   })
-    //   cookies().set("user_id", signInRes.record.id, {
-    //     httpOnly: true,
-    //     expires: Date.now() + month,
-    //   })
-    //   cookies().set("verified", signInRes.record.verified, {
-    //     httpOnly: true,
-    //     expires: Date.now() + month,
-    //   })
-    revalidateTag("user");
-    // redirect("/profile")
-    redirect("/");
-  } else {
-    const err = await res.json();
-    return err.message;
+    return "Failed to update a post";
   }
 }
 
@@ -200,21 +136,11 @@ export async function signUp(
       password: credentials.password,
     });
     try {
-      cookies().set("token", signInRes.token, {
-        httpOnly: true,
-        expires: Date.now() + expiration,
-      });
-      cookies().set("user_id", signInRes.record.id, {
-        httpOnly: true,
-        expires: Date.now() + expiration,
-      });
-      cookies().set("verified", signInRes.record.verified, {
-        httpOnly: true,
-        expires: Date.now() + expiration,
-      });
+      setCookie("token", signInRes.token);
+      setCookie("user_id", signInRes.record.id);
+      setCookie("verified", signInRes.record.verified);
     } finally {
       revalidateTag("user");
-      // redirect("/profile")
       redirect("/");
     }
   } else {
@@ -236,24 +162,50 @@ export async function signIn({ identity, password }: SignInCredentials) {
   ).then((res) => res.json());
   if (res.record) {
     try {
-      cookies().set("token", res.token, {
-        httpOnly: true,
-        expires: Date.now() + expiration,
-      });
-      cookies().set("user_id", res.record.id, {
-        httpOnly: true,
-        expires: Date.now() + expiration,
-      });
-      cookies().set("verified", res.record.verified, {
-        httpOnly: true,
-        expires: Date.now() + expiration,
-      });
+      setCookie("token", res.token);
+      setCookie("user_id", res.record.id);
+      setCookie("verified", res.record.verified);
     } finally {
       revalidateTag("user");
-      // redirect("/profile")
       redirect("/");
     }
   } else {
     return res.message;
   }
 }
+
+// export async function updateUser(
+//   credentials: UpdateUser,
+// ): Promise<ResponseError> {
+//   const [token, _, __] = await getSession()
+//   const res = await fetch(
+//     (process.env.NEXT_PUBLIC_AUTH_URL + "/records/" + credentials.id) as string,
+//     {
+//       method: "PATCH",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: token,
+//       },
+//       body: JSON.stringify(credentials),
+//     },
+//   )
+//   const authRefreshResponse = await fetch(
+//     process.env.NEXT_PUBLIC_AUTH_URL as string,
+//     {
+//       method: "POST",
+//       headers: {
+//         Authorization: token,
+//       },
+//     },
+//   ).then((res) => res.json())
+//   if (authRefreshResponse.ok) {
+//     setCookie("token", authRefreshResponse.token)
+//   }
+//   if (res.ok) {
+//     revalidateTag("user")
+//     redirect("/")
+//   } else {
+//     const err = await res.json()
+//     return err.message
+//   }
+// }
