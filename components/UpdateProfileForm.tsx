@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { updateUser } from "@/app/actions"
-import SubmitButton from "@/components/SubmitButton"
-import { useRouter } from "next/navigation"
+import { updateUser } from "@/app/actions";
+import SubmitButton from "@/components/SubmitButton";
+import { useRouter } from "next/navigation";
 
 export default function UpdateProfileForm({ user }: { user: User }) {
-  const router = useRouter()
+  const router = useRouter();
   const handleForm = async (data: FormData) => {
     // const inputEmail = (data.get("email") as string).trim()
-    const inputName = (data.get("name") as string).trim()
-    const inputUsername = (data.get("username") as string).trim()
+    const inputName = (data.get("name") as string).trim();
+    const inputUsername = (data.get("username") as string).trim();
     // const inputPassword = (data.get("password") as string).trim()
     // const inputPasswordConfirm = (data.get("password") as string).trim()
 
@@ -20,23 +20,24 @@ export default function UpdateProfileForm({ user }: { user: User }) {
       id: user.id,
       // password: inputPassword,
       // passwordConfirm: inputPasswordConfirm,
-    }
+    };
 
     // console.log(credentials)
-    const err = await updateUser(credentials)
+    const err = await updateUser(credentials);
 
     if (err) {
-      console.log(err)
-      alert(err)
+      console.log(err);
+      alert(err);
     }
-  }
+  };
 
   return (
     <>
       <form
         action={handleForm}
         className="flex w-full max-w-sm flex-col items-center"
-        id="postForm">
+        id="postForm"
+      >
         {/* <p className="mr-auto mt-8 font-ringbearer text-lg font-bold lowercase text-primary">
           Email
         </p>
@@ -51,7 +52,7 @@ export default function UpdateProfileForm({ user }: { user: User }) {
         <p className="mr-auto mt-8 font-ringbearer text-lg font-bold lowercase text-primary">
           Username
         </p>
-        <p className="mb-4 text-sm text-zinc-400 mr-auto">Used to sign in</p>
+        <p className="mb-4 mr-auto text-sm text-zinc-400">Used to sign in</p>
         <input
           type="text"
           name="username"
@@ -63,7 +64,9 @@ export default function UpdateProfileForm({ user }: { user: User }) {
         <p className="mr-auto mt-8 font-ringbearer text-lg font-bold lowercase text-primary">
           Name
         </p>
-        <p className="mb-4 text-sm text-zinc-400 mr-auto">Used to address you</p>
+        <p className="mb-4 mr-auto text-sm text-zinc-400">
+          Used to address you
+        </p>
         <input
           type="text"
           name="name"
@@ -79,7 +82,8 @@ export default function UpdateProfileForm({ user }: { user: User }) {
       </form>
       <button
         onClick={() => router.back()}
-        className="mx-auto mb-8 mt-4 w-full max-w-sm rounded-xl border-2 border-primary bg-white py-4 text-center text-[0.75em] font-black uppercase text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
+        className="mx-auto mb-8 mt-4 w-full max-w-sm rounded-xl border-2 border-primary bg-white py-4 text-center text-[0.75em] font-black uppercase text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4"
+      >
         Cancel
       </button>
     </>
@@ -100,5 +104,5 @@ export default function UpdateProfileForm({ user }: { user: User }) {
     //   autoComplete="off"
     //   required
     // />
-  )
+  );
 }

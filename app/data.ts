@@ -23,4 +23,4 @@ export const characters = [
   "Luna Lovegood",
   "Niffler",
   "Newt Scamander",
-]
+];

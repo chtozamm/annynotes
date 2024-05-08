@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import TextArea from "@/components/TextArea"
-import { createPost } from "@/app/actions"
-import { generateUniqueId } from "@/app/utils"
-import SubmitButton from "@/components/SubmitButton"
+import TextArea from "@/components/TextArea";
+import { createPost } from "@/app/actions";
+import { generateUniqueId } from "@/app/utils";
+import SubmitButton from "@/components/SubmitButton";
 
 export default function ShareForm({
   user,
 }: {
-  user: { id: string; verified: boolean }
+  user: { id: string; verified: boolean };
 }) {
   const handleForm = async (data: FormData) => {
-    const inputName = (data.get("author") as string).trim()
-    const inputMessage = (data.get("message") as string).trim()
+    const inputName = (data.get("author") as string).trim();
+    const inputMessage = (data.get("message") as string).trim();
 
     const newPost: Post = {
       id: generateUniqueId(),
@@ -20,21 +20,22 @@ export default function ShareForm({
       message: inputMessage,
       user_id: user.id,
       verified: user.verified,
-    }
+    };
 
-    const res = await createPost(newPost)
+    const res = await createPost(newPost);
 
     if (res === "fail") {
-      console.log("Failed posting a note")
-      alert("Couldn't post a note: please, try again")
+      console.log("Failed posting a note");
+      alert("Couldn't post a note: please, try again");
     }
-  }
+  };
 
   return (
     <form
       action={handleForm}
       className="mb-8 flex w-full max-w-sm flex-col items-center gap-4"
-      id="postForm">
+      id="postForm"
+    >
       <input
         type="text"
         name="author"
@@ -46,5 +47,5 @@ export default function ShareForm({
       {/* <Owl /> */}
       <SubmitButton innerText="Post" />
     </form>
-  )
+  );
 }

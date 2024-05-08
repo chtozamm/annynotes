@@ -1,8 +1,8 @@
-import { getSession } from "@/app/lib"
-import ShareForm from "@/components/ShareForm"
+import { getSession } from "@/app/lib";
+import ShareForm from "@/components/ShareForm";
 
 export default async function Page() {
-  const [_, userId, verified] = await getSession()
+  const [_, userId, verified] = await getSession();
   return (
     <>
       <h2 className="w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
@@ -13,5 +13,5 @@ export default async function Page() {
         user={{ id: userId, verified: verified === "true" ? true : false }}
       />
     </>
-  )
+  );
 }

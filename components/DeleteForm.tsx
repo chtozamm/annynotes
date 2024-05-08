@@ -1,33 +1,34 @@
-"use client"
+"use client";
 
-import { deletePost } from "@/app/actions"
-import SubmitButton from "@/components/SubmitButton"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { deletePost } from "@/app/actions";
+import SubmitButton from "@/components/SubmitButton";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function DeleteForm({ id }: { id: string }) {
-  const router = useRouter()
+  const router = useRouter();
   const handleForm = async (data: FormData) => {
     // const inputPasskey = data.get("passkey") || ""
 
     // if (inputPasskey === process.env.NEXT_PUBLIC_PASSKEY) {
-    const res = await deletePost(id)
+    const res = await deletePost(id);
     if (res === "fail") {
-      console.log("Failed deleting a note")
-      alert("Couldn't delete a note: please, try again")
+      console.log("Failed deleting a note");
+      alert("Couldn't delete a note: please, try again");
     }
     // } else {
     //   console.log("Authorization failed: incorrect passkey")
     //   alert("Authorization failed: incorrect passkey")
     // }
-  }
+  };
 
   return (
     <>
       <form
         action={handleForm}
         className="flex w-full max-w-sm flex-col items-center gap-4"
-        id="postForm">
+        id="postForm"
+      >
         {/* <input
         type="password"
         name="passkey"
@@ -51,9 +52,10 @@ export default function DeleteForm({ id }: { id: string }) {
       </form>
       <button
         onClick={() => router.back()}
-        className="mx-auto mb-8 mt-4 w-full max-w-sm rounded-xl border-2 border-primary bg-white py-4 text-center text-[0.75em] font-black uppercase text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
+        className="mx-auto mb-8 mt-4 w-full max-w-sm rounded-xl border-2 border-primary bg-white py-4 text-center text-[0.75em] font-black uppercase text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4"
+      >
         Cancel
       </button>
     </>
-  )
+  );
 }

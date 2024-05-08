@@ -1,36 +1,37 @@
-"use client"
+"use client";
 
-import { updatePost } from "@/app/actions"
-import SubmitButton from "@/components/SubmitButton"
-import TextArea from "@/components/TextArea"
-import { useRouter } from "next/navigation"
+import { updatePost } from "@/app/actions";
+import SubmitButton from "@/components/SubmitButton";
+import TextArea from "@/components/TextArea";
+import { useRouter } from "next/navigation";
 
 export default function UpdateForm({ post }: { post: Post }) {
-  const router = useRouter()
+  const router = useRouter();
   const handleForm = async (data: FormData) => {
-    const inputName = (data.get("author") as string).trim()
-    const inputMessage = (data.get("message") as string).trim()
+    const inputName = (data.get("author") as string).trim();
+    const inputMessage = (data.get("message") as string).trim();
 
     const updatedPost: Post = {
       ...post,
       author: inputName || post.author,
       message: inputMessage || post.message,
-    }
+    };
 
-    const res = await updatePost(updatedPost)
+    const res = await updatePost(updatedPost);
 
     if (res === "fail") {
-      console.log("Failed posting a note")
-      alert("Couldn't post a note: please, try again")
+      console.log("Failed posting a note");
+      alert("Couldn't post a note: please, try again");
     }
-  }
+  };
 
   return (
     <>
       <form
         action={handleForm}
         className="flex w-full max-w-sm flex-col items-center gap-4"
-        id="postForm">
+        id="postForm"
+      >
         <input
           type="text"
           name="author"
@@ -48,9 +49,10 @@ export default function UpdateForm({ post }: { post: Post }) {
       </form>
       <button
         onClick={() => router.back()}
-        className="mx-auto mb-8 mt-4 w-full max-w-sm rounded-xl border-2 border-primary bg-white py-4 text-center text-[0.75em] font-black uppercase text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
+        className="mx-auto mb-8 mt-4 w-full max-w-sm rounded-xl border-2 border-primary bg-white py-4 text-center text-[0.75em] font-black uppercase text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4"
+      >
         Cancel
       </button>
     </>
-  )
+  );
 }

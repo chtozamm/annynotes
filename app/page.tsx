@@ -1,7 +1,7 @@
-import { Suspense } from "react"
-import Image from "next/image"
-import Posts from "@/components/Posts"
-import LinkButton from "@/components/LinkButton"
+import { Suspense } from "react";
+import Image from "next/image";
+import Posts from "@/components/Posts";
+import LinkButton from "@/components/LinkButton";
 // import { getSession } from "./lib"
 
 export default async function Home() {
@@ -10,10 +10,10 @@ export default async function Home() {
     { next: { tags: ["posts"] } },
   )
     .then((res) => res.json())
-    .then((data) => data.items)
+    .then((data) => data.items);
 
   // const [_, userId, __] = await getSession()
-  const posts = data
+  const posts = data;
   // .filter(
   //   (post) => post.verified === true || post.user_id === userId,
   // )
@@ -34,7 +34,7 @@ export default async function Home() {
         <Error />
       )}
     </>
-  )
+  );
 }
 
 const Fallback = () => (
@@ -46,7 +46,8 @@ const Fallback = () => (
       {[0, 1, 2].map((_, i) => (
         <li
           key={i}
-          className="relative mb-8 h-48 whitespace-pre-wrap break-words rounded-2xl border-t-2 border-primary bg-secondary px-4 pb-8 pt-4 text-center leading-6 lg:px-8">
+          className="relative mb-8 h-48 whitespace-pre-wrap break-words rounded-2xl border-t-2 border-primary bg-secondary px-4 pb-8 pt-4 text-center leading-6 lg:px-8"
+        >
           <Image
             className="absolute left-[calc(50%-12px)] top-[-0.9em]"
             src="/icons/scroll.svg"
@@ -58,11 +59,11 @@ const Fallback = () => (
       ))}
     </ul>
   </>
-)
+);
 
 const Error = () => (
   <h2 className="my-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
     Couldn&apos;t find any notes these time: refresh the page or try again later
     ✨
   </h2>
-)
+);

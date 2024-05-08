@@ -10,6 +10,6 @@ const Owl = () => (
     </p>
     <span className="text-3xl">🦉</span>
   </div>
-)
+);
 
-export default Owl
+export default Owl;

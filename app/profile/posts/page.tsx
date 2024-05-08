@@ -1,6 +1,6 @@
-import { getSession } from "@/app/lib"
-import LinkButton from "@/components/LinkButton"
-import Posts from "@/components/Posts"
+import { getSession } from "@/app/lib";
+import LinkButton from "@/components/LinkButton";
+import Posts from "@/components/Posts";
 
 export default async function UserPosts() {
   const data: Post[] = await fetch(
@@ -8,9 +8,9 @@ export default async function UserPosts() {
     { next: { tags: ["posts"] }, cache: "force-cache" },
   )
     .then((res) => res.json())
-    .then((data) => data.items)
-  const [_, userId, __] = await getSession()
-  const posts = data.filter((post) => post.user_id === userId)
+    .then((data) => data.items);
+  const [_, userId, __] = await getSession();
+  const posts = data.filter((post) => post.user_id === userId);
   return (
     <>
       {/* <LinkButton label="Share" /> */}
@@ -19,5 +19,5 @@ export default async function UserPosts() {
       </h2>
       <Posts posts={posts} />
     </>
-  )
+  );
 }

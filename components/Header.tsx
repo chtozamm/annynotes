@@ -1,11 +1,12 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
 
 const Header = () => (
   <header className="my-8 w-full">
     <Link
       href="/"
-      className="mx-auto flex w-fit items-center justify-center gap-1.5 font-ringbearer text-4xl font-bold text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:rounded-lg lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
+      className="mx-auto flex w-fit items-center justify-center gap-1.5 font-ringbearer text-4xl font-bold text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:rounded-lg lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4"
+    >
       Annynotes
       {/* Birthday theme: */}
       {/* <svg
@@ -35,6 +36,6 @@ const Header = () => (
       Share a legend or leave a note for a loved one
     </p>
   </header>
-)
+);
 
-export default Header
+export default Header;

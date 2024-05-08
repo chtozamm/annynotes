@@ -1,6 +1,6 @@
-import Image from "next/image"
-import Link from "next/link"
-import { characters } from "@/app/data"
+import Image from "next/image";
+import Link from "next/link";
+import { characters } from "@/app/data";
 
 export default function Posts({ posts }: { posts: Post[] }) {
   return (
@@ -9,7 +9,8 @@ export default function Posts({ posts }: { posts: Post[] }) {
         {posts?.map((post: Post, idx: number) => (
           <li
             key={post.id}
-            className="relative mb-8 flex flex-col items-center rounded-2xl border-t-2 border-primary bg-secondary px-4 pb-8 pt-4 text-center leading-6 lg:px-8">
+            className="relative mb-8 flex flex-col items-center rounded-2xl border-t-2 border-primary bg-secondary px-4 pb-8 pt-4 text-center leading-6 lg:px-8"
+          >
             {/* Birthday theme: */}
             {/* <svg
               height="26"
@@ -40,7 +41,8 @@ export default function Posts({ posts }: { posts: Post[] }) {
             <p className="w-full">
               <Link
                 href={`/posts/${post.id}`}
-                className="w-fit select-text font-ringbearer text-lg font-bold text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
+                className="w-fit select-text font-ringbearer text-lg font-bold text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4"
+              >
                 {posts.length > 1 ? `Note #${posts.length - idx}` : "Note"}
               </Link>
             </p>
@@ -49,7 +51,8 @@ export default function Posts({ posts }: { posts: Post[] }) {
                 href={`/authors/${post.author
                   .replaceAll(" ", "_")
                   .toLowerCase()}`}
-                className="flex w-fit select-text items-center justify-center gap-1.5 italic text-zinc-400 outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
+                className="flex w-fit select-text items-center justify-center gap-1.5 italic text-zinc-400 outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4"
+              >
                 <span>from {post.author}</span>
                 {characters.includes(post.author) ? (
                   <Image
@@ -73,5 +76,5 @@ export default function Posts({ posts }: { posts: Post[] }) {
         ))}
       </ul>
     </>
-  )
+  );
 }

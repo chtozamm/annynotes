@@ -1,10 +1,10 @@
-import { redirect } from "next/navigation"
-import { getSession, signout } from "@/app/lib"
-import Link from "next/link"
+import { redirect } from "next/navigation";
+import { getSession, signout } from "@/app/lib";
+import Link from "next/link";
 
 export default async function Profile() {
-  const [token, userId, _] = await getSession()
-  if (!userId) redirect("/signin")
+  const [token, userId, _] = await getSession();
+  if (!userId) redirect("/signin");
   const user: User = await fetch(
     (process.env.NEXT_PUBLIC_AUTH_URL + "/records/" + userId) as string,
     {
@@ -13,7 +13,7 @@ export default async function Profile() {
       },
       next: { tags: ["user"] },
     },
-  ).then((res) => res.json())
+  ).then((res) => res.json());
   // console.log(user)
   return (
     <>
@@ -21,7 +21,9 @@ export default async function Profile() {
         <h2 className="w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
           Welcome back, {user.name}!
         </h2>
-        <p className="text-sm text-zinc-400 text-center">Credentials used to sign in:</p>
+        <p className="text-center text-sm text-zinc-400">
+          Credentials used to sign in:
+        </p>
         <p className="mr-auto font-ringbearer text-lg font-bold lowercase text-primary">
           Email
         </p>
@@ -37,7 +39,8 @@ export default async function Profile() {
       </div>
       <Link
         href={"/profile/edit"}
-        className="mx-auto mt-4 inline-flex w-full max-w-sm select-none items-center justify-center rounded-xl bg-primary py-4 text-[0.75em] font-black uppercase text-white outline-none active:opacity-75 disabled:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
+        className="mx-auto mt-4 inline-flex w-full max-w-sm select-none items-center justify-center rounded-xl bg-primary py-4 text-[0.75em] font-black uppercase text-white outline-none active:opacity-75 disabled:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4"
+      >
         {/* Change credentials */}
         Edit profile
       </Link>
@@ -48,9 +51,10 @@ export default async function Profile() {
       </Link> */}
       <Link
         href={"/signout"}
-        className="mx-auto mb-8 mt-4 w-full max-w-sm select-none rounded-xl border-2 border-primary bg-white py-4 text-center text-[0.75em] font-black uppercase text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4">
+        className="mx-auto mb-8 mt-4 w-full max-w-sm select-none rounded-xl border-2 border-primary bg-white py-4 text-center text-[0.75em] font-black uppercase text-primary outline-none active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-primary lg:focus-visible:ring-offset-4"
+      >
         Sign out
       </Link>
     </>
-  )
+  );
 }

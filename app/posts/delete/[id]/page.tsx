@@ -1,21 +1,21 @@
-import { getSession } from "@/app/lib"
-import { validateId } from "@/app/utils"
-import DeleteForm from "@/components/DeleteForm"
-import { redirect } from "next/navigation"
+import { getSession } from "@/app/lib";
+import { validateId } from "@/app/utils";
+import DeleteForm from "@/components/DeleteForm";
+import { redirect } from "next/navigation";
 
 export default async function Page({
   params: { id },
 }: {
-  params: { id: string }
+  params: { id: string };
 }) {
   const post: Post = await fetch(process.env.NEXT_PUBLIC_DB_URL + "/" + id, {
     cache: "no-store",
-  }).then((res) => res.json())
-  const [_, userId, __] = await getSession()
-  if (userId !== post.user_id) redirect("/")
+  }).then((res) => res.json());
+  const [_, userId, __] = await getSession();
+  if (userId !== post.user_id) redirect("/");
   if (validateId(id)) {
-    return <DeleteForm id={id} />
+    return <DeleteForm id={id} />;
   } else {
-    return <p>Invalid id</p>
+    return <p>Invalid id</p>;
   }
 }

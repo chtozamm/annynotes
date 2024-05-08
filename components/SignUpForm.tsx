@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { signUp } from "@/app/actions"
-import SubmitButton from "@/components/SubmitButton"
+import { signUp } from "@/app/actions";
+import SubmitButton from "@/components/SubmitButton";
 
 export default function SignUpForm() {
   const handleForm = async (data: FormData) => {
-    const inputEmail = (data.get("email") as string).trim()
+    const inputEmail = (data.get("email") as string).trim();
     // const inputName = (data.get("name") as string).trim()
     // const inputUsername = (data.get("username") as string).trim()
-    const inputPassword = (data.get("password") as string).trim()
-    const inputPasswordConfirm = (data.get("password") as string).trim()
+    const inputPassword = (data.get("password") as string).trim();
+    const inputPasswordConfirm = (data.get("password") as string).trim();
 
     const credentials: SignUpCredentials = {
       email: inputEmail,
@@ -18,21 +18,22 @@ export default function SignUpForm() {
       passwordConfirm: inputPasswordConfirm,
       // name: inputName,
       emailVisibility: true,
-    }
+    };
 
-    const err = await signUp(credentials)
+    const err = await signUp(credentials);
 
     if (err) {
-      console.log(err)
-      alert(err)
+      console.log(err);
+      alert(err);
     }
-  }
+  };
 
   return (
     <form
       action={handleForm}
       className="mb-8 flex w-full max-w-sm flex-col items-center gap-4"
-      id="postForm">
+      id="postForm"
+    >
       <input
         type="email"
         name="email"
@@ -73,5 +74,5 @@ export default function SignUpForm() {
       />
       <SubmitButton innerText="Sign up" />
     </form>
-  )
+  );
 }

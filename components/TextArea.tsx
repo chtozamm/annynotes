@@ -1,16 +1,16 @@
-import { ChangeEvent, MouseEvent } from "react"
+import { ChangeEvent, MouseEvent } from "react";
 
 const onChangeHandler = function (e: ChangeEvent<HTMLTextAreaElement>) {
-  const target = e.target as HTMLTextAreaElement
-  target.style.height = "auto"
-  target.style.height = `${target.scrollHeight + 2}px`
-}
+  const target = e.target as HTMLTextAreaElement;
+  target.style.height = "auto";
+  target.style.height = `${target.scrollHeight + 2}px`;
+};
 
 const onClickHandler = function (e: MouseEvent<HTMLTextAreaElement>) {
-  const target = e.target as HTMLTextAreaElement
-  target.style.height = "auto"
-  target.style.height = `${target.scrollHeight + 2}px`
-}
+  const target = e.target as HTMLTextAreaElement;
+  target.style.height = "auto";
+  target.style.height = `${target.scrollHeight + 2}px`;
+};
 
 const TextArea = ({ ...props }) => (
   <textarea
@@ -24,6 +24,6 @@ const TextArea = ({ ...props }) => (
     onClick={onClickHandler}
     {...props}
   />
-)
+);
 
-export default TextArea
+export default TextArea;

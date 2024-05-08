@@ -1,31 +1,32 @@
-"use client"
+"use client";
 
-import { signIn } from "@/app/actions"
-import SubmitButton from "@/components/SubmitButton"
+import { signIn } from "@/app/actions";
+import SubmitButton from "@/components/SubmitButton";
 
 export default function SignInForm() {
   const handleForm = async (data: FormData) => {
-    const inputIdentity = (data.get("identity") as string).trim()
-    const inputPassword = (data.get("password") as string).trim()
+    const inputIdentity = (data.get("identity") as string).trim();
+    const inputPassword = (data.get("password") as string).trim();
 
     const credentials: SignInCredentials = {
       identity: inputIdentity,
       password: inputPassword,
-    }
+    };
 
-    const err = await signIn(credentials)
+    const err = await signIn(credentials);
 
     if (err) {
       // console.log("Failed posting a note");
-      alert(err)
+      alert(err);
     }
-  }
+  };
 
   return (
     <form
       action={handleForm}
       className="mb-8 flex w-full max-w-sm flex-col items-center gap-4"
-      id="postForm">
+      id="postForm"
+    >
       <input
         type="email"
         name="identity"
@@ -44,5 +45,5 @@ export default function SignInForm() {
       />
       <SubmitButton innerText="Sign In" />
     </form>
-  )
+  );
 }
