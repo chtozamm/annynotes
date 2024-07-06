@@ -1,7 +1,7 @@
 import LinkButton from "@/components/LinkButton";
-import SignInForm from "@/components/SignInForm";
+import SignInForm from "./SignInForm";
 import { redirect } from "next/navigation";
-import { getSession } from "@/app/lib";
+import { getSession } from "@/lib";
 
 export default async function Page() {
   const [token, _, __] = await getSession();

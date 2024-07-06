@@ -1,16 +1,9 @@
-/** @type {import('next').NextConfig} */
+/**
+ * @type {import('next').NextConfig}
+ **/
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        hostname: "annynotes.pockethost.io",
-      },
-    ],
-  },
+  // output: "export",
+  // distDir: "static",
 };
 
-const withPWA = require("next-pwa")({
-  dest: "public",
-});
-
-module.exports = withPWA(nextConfig);
+module.exports = nextConfig;
