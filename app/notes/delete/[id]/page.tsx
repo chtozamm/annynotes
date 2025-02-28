@@ -5,10 +5,11 @@ import DeleteForm from "@/components/delete-form";
 import { redirect } from "next/navigation";
 
 export default async function Page({
-  params: { id },
+  params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const id = (await params).id;
   const note: Note = await fetch(process.env.NEXT_PUBLIC_DB_URL + "/" + id, {
     cache: "no-store",
   }).then((res) => res.json());

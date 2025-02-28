@@ -6,10 +6,11 @@ import UpdateForm from "@/components/update-form";
 import { Note } from "@/app/types";
 
 export default async function Page({
-  params: { id },
+  params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const id = (await params).id;
   if (validateId(id)) {
     const note: Note = await fetch(process.env.NEXT_PUBLIC_DB_URL + "/" + id, {
       cache: "no-store",

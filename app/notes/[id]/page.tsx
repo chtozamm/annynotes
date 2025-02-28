@@ -20,10 +20,11 @@ export async function generateStaticParams() {
 }
 
 export default async function Home({
-  params: { id },
+  params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const id = (await params).id;
   const data: Note[] = await fetch(
     process.env.NEXT_PUBLIC_DB_URL + "?sort=-created&perPage=1000",
     { next: { tags: ["notes"] } },

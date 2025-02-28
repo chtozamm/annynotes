@@ -17,11 +17,11 @@ export async function generateStaticParams() {
 }
 
 export default async function Home({
-  params: { author },
+  params,
 }: {
-  params: { author: string };
+  params: Promise<{ author: string }>;
 }) {
-  const authorName = author.replaceAll("_", " "); // formatted name
+  const authorName = (await params).author.replaceAll("_", " "); // formatted name
   const notes: Note[] = await fetch(
     process.env.NEXT_PUBLIC_DB_URL + "?sort=-created&perPage=1000",
     { next: { tags: ["notes"] } },
