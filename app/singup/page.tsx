@@ -1,5 +1,5 @@
 import LinkButton from "@/components/link-button";
-import SignInForm from "@/components/sign-in-form";
+import SignUpForm from "@/components/sign-up-form";
 import { redirect } from "next/navigation";
 import { getSession } from "@/app/lib";
 
@@ -9,14 +9,12 @@ export default async function Page() {
   return (
     <>
       <h2 className="font-ringbearer text-primary mt-2 w-full text-center text-2xl font-bold lowercase">
-        Sign In
+        Sign Up
       </h2>
-      <p className="mb-4 text-sm text-zinc-400">
-        Sign in with your credentials
-      </p>
-      <SignInForm />
+      <p className="mb-4 text-sm text-zinc-400">Create a new account</p>
+      <SignUpForm />
       <p className="-mt-4 mb-4 text-sm text-zinc-400">or</p>
-      <LinkButton href="/signup" secondary={true} label="Sign up" />
+      <LinkButton href="/signin" secondary={true} label="Sign In" />
     </>
   );
 }

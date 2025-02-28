@@ -1,4 +1,4 @@
-type Post = {
+export type Note = {
   author: string;
   message: string;
   id: string;
@@ -6,7 +6,7 @@ type Post = {
   verified: boolean;
 };
 
-type User = {
+export type User = {
   email: string;
   name: string;
   username: string;
@@ -16,21 +16,21 @@ type User = {
   id: string;
 };
 
-type UpdateUser = {
+export type UpdateUser = {
   // email: string
   username: string;
   name: string;
   id: string;
 };
 
-type ResponseError = string;
+export type ResponseError = string;
 
-type SignInCredentials = {
+export type SignInCredentials = {
   identity: string;
   password: string;
 };
 
-type SignUpCredentials = {
+export type SignUpCredentials = {
   email: string;
   username?: string;
   password: string;

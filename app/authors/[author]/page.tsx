@@ -1,17 +1,18 @@
-import Posts from "@/components/Posts";
-import LinkButton from "@/components/LinkButton";
+import Notes from "@/components/notes";
+import LinkButton from "@/components/link-button";
+import { Note } from "@/app/types";
 
 // Return a list of `params` to populate the [author] dynamic segment
 export async function generateStaticParams() {
-  const posts: Post[] = await fetch(
+  const notes: Note[] = await fetch(
     process.env.NEXT_PUBLIC_DB_URL + "?sort=-created&perPage=1000",
-    { next: { tags: ["posts"] } },
+    { next: { tags: ["notes"] } },
   )
     .then((res) => res.json())
     .then((data) => data.items);
 
-  return posts.map((post) => ({
-    author: post.author.toLowerCase().replaceAll(" ", "_"),
+  return notes.map((note) => ({
+    author: note.author.toLowerCase().replaceAll(" ", "_"),
   }));
 }
 
@@ -21,25 +22,25 @@ export default async function Home({
   params: { author: string };
 }) {
   const authorName = author.replaceAll("_", " "); // formatted name
-  const posts: Post[] = await fetch(
+  const notes: Note[] = await fetch(
     process.env.NEXT_PUBLIC_DB_URL + "?sort=-created&perPage=1000",
-    { next: { tags: ["posts"] } },
+    { next: { tags: ["notes"] } },
   )
     .then((res) => res.json())
     .then((data) =>
-      (data.items as Post[]).filter(
-        (post) => post.author.toLowerCase() === authorName,
+      (data.items as Note[]).filter(
+        (note) => note.author.toLowerCase() === authorName,
       ),
     );
   return (
     <>
       <LinkButton label="Share" />
-      <h2 className="my-8 w-full text-center font-ringbearer text-2xl font-bold lowercase text-primary">
-        {posts.length > 0
+      <h2 className="font-ringbearer text-primary my-8 w-full text-center text-2xl font-bold lowercase">
+        {notes.length > 0
           ? `From ${authorName}:`
-          : `${authorName} hasn't posted anything yet`}
+          : `${authorName} hasn't noteed anything yet`}
       </h2>
-      <Posts posts={posts} />
+      <Notes notes={notes} />
     </>
   );
 }

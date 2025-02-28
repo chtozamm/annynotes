@@ -1,14 +1,34 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --font-ringbearer: Ringbearer;
+  --color-primary: #ffb220;
+  --color-secondary: #fffbf7;
+}
 
 @font-face {
   font-family: "Ringbearer";
   src: url("/fonts/Ringbearer.ttf") format("truetype");
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+html {
+  scrollbar-gutter: stable;
 }
+
+/* :root {
+  --background: #ffffff;
+  --foreground: #171717;
+} */
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+/* body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+} */

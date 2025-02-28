@@ -2,22 +2,31 @@
 
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { getSession } from "./lib";
+import { getSession } from "@/app/lib";
 import { cookies } from "next/headers";
+import {
+  Note,
+  ResponseError,
+  SignInCredentials,
+  SignUpCredentials,
+} from "./types";
 
-function setCookie(key: string, value: string) {
+export async function setCookie(key: string, value: string) {
+  const cookieStore = await cookies();
   const expiration = 2 * 24 * 60 * 60 * 1000; // 2 days
-  cookies().set(key, value, {
+  cookieStore.set({
+    name: key,
+    value: value,
     httpOnly: true,
     expires: Date.now() + expiration,
   });
 }
 
-export async function createPost(post: Post): Promise<ResponseError> {
-  const [token, _, __] = await getSession();
+export async function createNote(note: Note): Promise<ResponseError> {
+  const [token, ,] = await getSession();
   if (!token) return "Unauthenticated";
-  if (!post.author) {
-    post.author = "stranger";
+  if (!note.author) {
+    note.author = "stranger";
   }
   const res = await fetch(process.env.NEXT_PUBLIC_DB_URL as string, {
     method: "POST",
@@ -25,7 +34,7 @@ export async function createPost(post: Post): Promise<ResponseError> {
       "Content-Type": "application/json",
       Authorization: token,
     },
-    body: JSON.stringify(post),
+    body: JSON.stringify(note),
   });
   const authRefreshResponse = await fetch(
     process.env.NEXT_PUBLIC_AUTH_URL as string,
@@ -40,16 +49,16 @@ export async function createPost(post: Post): Promise<ResponseError> {
     setCookie("token", authRefreshResponse.token);
   }
   if (res.ok) {
-    revalidateTag("posts");
-    const post = await res.json();
-    redirect("/posts/" + post.id);
+    revalidateTag("notes");
+    const note = await res.json();
+    redirect("/notes/" + note.id);
   } else {
-    return "Failed to create a post";
+    return "Failed to create a note";
   }
 }
 
-export async function deletePost(id: string): Promise<ResponseError> {
-  const [token, userId, _] = await getSession();
+export async function deleteNote(id: string): Promise<ResponseError> {
+  const [token, userId] = await getSession();
   if (!token || !userId) return "Unauthenticated";
   const res = await fetch(process.env.NEXT_PUBLIC_DB_URL + "/" + id, {
     method: "DELETE",
@@ -75,27 +84,27 @@ export async function deletePost(id: string): Promise<ResponseError> {
     setCookie("token", authRefreshResponse.token);
   }
   if (res.ok) {
-    revalidateTag("posts");
+    revalidateTag("notes");
     redirect("/");
   } else {
-    return "Failed to delete a post";
+    return "Failed to delete a note";
   }
 }
 
-export async function updatePost(post: Post): Promise<ResponseError> {
-  const [token, userId, _] = await getSession();
+export async function updateNote(note: Note): Promise<ResponseError> {
+  const [token, userId] = await getSession();
   if (!token || !userId) return "Unauthenticated";
-  if (!post.author) {
-    post.author = "stranger";
+  if (!note.author) {
+    note.author = "stranger";
   }
-  const res = await fetch(process.env.NEXT_PUBLIC_DB_URL + "/" + post.id, {
+  const res = await fetch(process.env.NEXT_PUBLIC_DB_URL + "/" + note.id, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: token,
       "X-UserID": userId,
     },
-    body: JSON.stringify(post),
+    body: JSON.stringify(note),
   });
   const authRefreshResponse = await fetch(
     process.env.NEXT_PUBLIC_AUTH_URL as string,
@@ -110,10 +119,10 @@ export async function updatePost(post: Post): Promise<ResponseError> {
     setCookie("token", authRefreshResponse.token);
   }
   if (res.ok) {
-    revalidateTag("posts");
+    revalidateTag("notes");
     redirect("/");
   } else {
-    return "Failed to update a post";
+    return "Failed to update a note";
   }
 }
 
@@ -177,7 +186,7 @@ export async function signIn({ identity, password }: SignInCredentials) {
 // export async function updateUser(
 //   credentials: UpdateUser,
 // ): Promise<ResponseError> {
-//   const [token, _, __] = await getSession()
+//   const [token] = await getSession()
 //   const res = await fetch(
 //     (process.env.NEXT_PUBLIC_AUTH_URL + "/records/" + credentials.id) as string,
 //     {
