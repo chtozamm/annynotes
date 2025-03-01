@@ -3,23 +3,16 @@ export type Note = {
   message: string;
   id: string;
   user_id: string;
-  verified: boolean;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type Credentials = {
+  token: string;
+  user_id: string;
 };
 
 export type User = {
-  email: string;
-  name: string;
-  username: string;
-  password: string;
-  // passwordConfirm?: string;
-  verified: boolean;
-  id: string;
-};
-
-export type UpdateUser = {
-  // email: string
-  username: string;
-  name: string;
   id: string;
 };
 

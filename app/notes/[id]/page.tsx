@@ -4,8 +4,25 @@ import Image from "next/image";
 import Notes from "@/components/notes";
 import LinkButton from "@/components/link-button";
 import { Note } from "@/app/types";
+import { Metadata } from "next";
 
-// Return a list of `params` to populate the [id] dynamic segment
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = (await params).id;
+
+  const note = await fetch(`${process.env.NEXT_PUBLIC_DB_URL}/${id}`, {
+    next: { tags: ["notes"] },
+  }).then((res) => res.json());
+
+  return {
+    title: `Note from ${note.author} - Annynotes ✨`,
+  };
+}
+
+/** Returns a list of `params` to populate the [id] dynamic segment. */
 export async function generateStaticParams() {
   const data: Note[] = await fetch(
     process.env.NEXT_PUBLIC_DB_URL + "?sort=-created&perPage=1000",

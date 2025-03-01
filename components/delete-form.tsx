@@ -17,7 +17,7 @@ export default function DeleteForm({ id }: { id: string }) {
       <form
         action={handleForm}
         className="flex w-full max-w-sm flex-col items-center gap-4"
-        id="noteForm"
+        id="delete-note-form"
       >
         <div className="border-primary bg-secondary flex w-full items-center justify-center rounded-xl border py-4">
           <p className="mx-2 text-center text-sm text-zinc-400">

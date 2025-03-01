@@ -12,7 +12,7 @@ export default async function Home() {
   return (
     <>
       <LinkButton label="Share" />
-      {notes?.length > 0 ? (
+      {notes.length > 0 ? (
         <>
           <h2 className="font-ringbearer text-primary my-8 w-full text-center text-2xl font-bold lowercase">
             {notes.length > 0
@@ -29,8 +29,12 @@ export default async function Home() {
 }
 
 const Error = () => (
-  <h2 className="font-ringbearer text-primary my-8 w-full text-center text-2xl font-bold lowercase">
-    Couldn&apos;t find any notes these time: refresh the page or try again later
-    ✨
-  </h2>
+  <div className="border-primary bg-secondary my-8 flex w-fit items-center justify-center rounded-xl border px-4 py-4">
+    <p className="mx-2 text-center text-sm text-zinc-400">
+      Someone has stolen all the notes!
+      <br />
+      Try to reload the page to get them back
+    </p>
+    <span className="text-3xl">🦉</span>
+  </div>
 );

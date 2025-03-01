@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
 import Header from "@/components/header";
 
 export const metadata: Metadata = {
   title: "Annynotes - The world of fantasy ✨",
-  description: "Share a legend or leave a note for a loved one.",
-  // TODO: opengraph and twitter image,
-  // PWA information
+  description: "A board for notes and legends told by well-known characters.",
 };
 
 export default function RootLayout({

@@ -1,9 +1,7 @@
-import { redirect } from "next/navigation";
-import { revalidateTag } from "next/cache";
-import { getSession } from "@/app/lib";
 import { validateId } from "@/app/utils";
 import UpdateForm from "@/components/update-form";
 import { Note } from "@/app/types";
+import { notFound } from "next/navigation";
 
 export default async function Page({
   params,
@@ -16,15 +14,6 @@ export default async function Page({
       cache: "no-store",
     }).then((res) => res.json());
 
-    if (note.message === "The requested resource wasn't found.") {
-      revalidateTag("notes");
-      redirect("/");
-    }
-
-    const [token, userId] = await getSession();
-    if (token == "") redirect("/signin");
-    if (userId !== note.user_id) redirect("/");
-
     return (
       <>
         <h2 className="font-ringbearer text-primary mt-2 w-full text-center text-2xl font-bold lowercase">
@@ -35,6 +24,6 @@ export default async function Page({
       </>
     );
   } else {
-    return <p>Invalid note id</p>;
+    notFound();
   }
 }

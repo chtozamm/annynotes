@@ -1,9 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { characters } from "@/app/data";
+import { usePathname } from "next/navigation";
 import { Note } from "@/app/types";
 
 export default function Notes({ notes }: { notes: Note[] }) {
+  const pathname = usePathname();
   return (
     <ul className="w-full">
       {notes.map((note: Note, idx: number) => (
@@ -22,7 +26,7 @@ export default function Notes({ notes }: { notes: Note[] }) {
           <p className="w-full">
             <Link
               href={`/notes/${note.id}`}
-              className="font-ringbearer text-primary lg:focus-visible:ring-primary w-fit text-lg font-bold outline-none select-text active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-offset-4"
+              className={`${pathname.startsWith("/notes/") ? "pointer-events-none" : ""} font-ringbearer text-primary lg:focus-visible:ring-primary w-fit text-lg font-bold outline-none select-text active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-offset-4`}
             >
               {notes.length > 1 ? `Note #${notes.length - idx}` : "Note"}
             </Link>
@@ -32,7 +36,7 @@ export default function Notes({ notes }: { notes: Note[] }) {
               href={`/authors/${note.author
                 .replaceAll(" ", "_")
                 .toLowerCase()}`}
-              className="lg:focus-visible:ring-primary flex w-fit items-center justify-center gap-1.5 text-zinc-400 italic outline-none select-text active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-offset-4"
+              className={`${pathname.startsWith("/authors/") ? "pointer-events-none" : ""} lg:focus-visible:ring-primary flex w-fit items-center justify-center gap-1.5 text-zinc-400 italic outline-none select-text active:opacity-75 lg:hover:opacity-75 lg:focus-visible:ring-2 lg:focus-visible:ring-offset-4`}
             >
               from {note.author}
               {characters.includes(note.author) ? (

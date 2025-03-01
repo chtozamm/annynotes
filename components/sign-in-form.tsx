@@ -17,7 +17,6 @@ export default function SignInForm() {
     const err = await signIn(credentials);
 
     if (err) {
-      // console.log("Failed noteing a note");
       alert(err);
     }
   };

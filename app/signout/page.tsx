@@ -1,6 +1,6 @@
 "use client";
 
-import { signout } from "@/app/lib";
+import { signout } from "@/app/actions";
 import SubmitButton from "@/components/submit-button";
 import { useRouter } from "next/navigation";
 

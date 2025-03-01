@@ -9,7 +9,7 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: "/",
     name: "Annynotes - The world of fantasy ✨",
     short_name: "Annynotes",
-    description: "Share a legend or leave a note for a loved one.",
+    description: "A board for notes and legends told by well-known characters.",
     icons: [
       {
         src: "/icon-192x192.png",

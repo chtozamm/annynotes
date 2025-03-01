@@ -12,5 +12,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/notes/new", "/notes/edit", "/notes/delete", "/notes/revalidate"],
+  matcher: ["/notes/new", "/notes/edit/:path*", "/notes/delete/:path*"],
 };
