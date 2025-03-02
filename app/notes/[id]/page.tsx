@@ -13,13 +13,22 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const id = (await params).id;
 
-  const note = await fetch(`${process.env.NEXT_PUBLIC_DB_URL}/${id}`, {
-    next: { tags: ["notes"] },
-  }).then((res) => res.json());
+  const notes: Note[] = await fetch(
+    process.env.NEXT_PUBLIC_DB_URL + "?sort=-created&perPage=1000",
+    { next: { tags: ["notes"] } },
+  )
+    .then((res) => res.json())
+    .then((data) => data.items);
 
-  return {
-    title: `Note from ${note.author} - Annynotes ✨`,
-  };
+  const note = notes.find((note) => note.id == id);
+
+  if (note) {
+    return {
+      title: `Note from ${note.author} - Annynotes ✨`,
+    };
+  }
+
+  return {};
 }
 
 /** Returns a list of `params` to populate the [id] dynamic segment. */
